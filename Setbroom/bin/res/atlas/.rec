@@ -1,5 +1,7 @@
 D .
 R BB504DCB bg_black.png
+D common
+R 6530897D ui_describe_02.png
 D comp
 P 316AD948 btn_close.png
 P 5B258D17 button.png
@@ -41,6 +43,7 @@ P DDDDFB9E vslider$bar.png
 P 01BAE7F5 vslider.png
 D guoguanchenggong
 P 15F2C078 down.png
+P 8F3E2D61 get_10bei.png
 P EF737239 get_btn_01.png
 P A259F3CE get_btn_02.png
 P 59818F4C icon_gold.png
@@ -51,6 +54,7 @@ P B3A0AEDA ui_crown.png
 P 2398BE9B up.png
 P 88F8A936 whitecircle.png
 P FAFAD844 whitedot.png
+P 2C0CCD42 word_buxiexie.png
 P D7661089 words_01.png
 D guoguanshibai
 P E690B812 again_btn.png
@@ -100,8 +104,9 @@ P 80AE663E ui_shadow.png
 P 76B952F3 word_select.png
 S 269865C8 皮肤.png
 D pifushiyong
+P 5740114A close_btn.png
 P 0EBF2839 icon_adv.png
-P F57ED9C8 shiyong_btn.png
+P BEF934E0 shiyong_btn.png
 P FAFAD844 ui_kanguang.png
 P 88F8A936 ui_kanguanggao2.png
 P 19C88FB1 ui_name.png
@@ -109,6 +114,7 @@ P 03D84176 ui_shadow.png
 P 75FC0725 word_advget.png
 P 60B8EBDA word_advnoget.png
 P 2CBD3F26 word_shiyong.png
+P 35C4FCA6 word_xiexie.png
 P 2B2E8F22 word_zanshi.png
 P A0A1F6EE word_zanshino.png
 D shezhi
@@ -121,6 +127,7 @@ P A923AEB0 shake_on.png
 P BFBF91B0 ui_baseborde1.png
 P 2F67DEAB ui_baseborde2.png
 P BD01B4EC ui_baseborde3.png
+D TJ
 D voice
 R 6FAE5CE7 bgm.mp3
 R 626CADAF btn.wav
@@ -157,3 +164,35 @@ P 5A788DF2 treasurebox_01.png
 P B6E786ED treasurebox_02.png
 P 83E5DCD0 ui_customs_circle02.png
 P 304B574B ui_gold_01.png
+D TJ/Promo
+D TJ/Promo/image
+P A43D9CBA cnxh.png
+P 99431921 di2.png
+P 324E0C01 gdyx.png
+P DD5E998F gdyx2.png
+P 065547DB gdyx3.png
+P E8CF5470 hb2.png
+R A91EA1E1 jx1.png
+P 3EECC3B9 jx10.png
+R 35991AF2 jx11.png
+P C7132F1F jx14.png
+R 626301A7 jx3.png
+R 494CC67B jx6.png
+R 3DD8E94B jx8.png
+P C167ACB2 kk1.png
+P 211D25A9 kk2.png
+P B6E1ED76 kk3.png
+P 5206FB64 new2.png
+P 42063299 remen1.png
+P F56500C5 rm3.png
+P 3BB6C3A1 sw.png
+P 821E80DE swdjl.png
+P B254AEFE tc2.png
+P 45A53A2D tc23.png
+P A01AFDAA tc3.png
+P EA808596 tishi.png
+P 46BBD479 tuijian2.png
+R A24BEE5A white.jpg
+P BCCD0083 y1.png
+P 3ECD784B yjjx14.png
+P BBB689A3 zt_1_10.png

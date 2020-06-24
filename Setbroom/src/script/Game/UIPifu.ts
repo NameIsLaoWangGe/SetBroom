@@ -104,6 +104,8 @@ export default class UIPifu extends Laya.Script {
         this.self['TowBtn'].y = Laya.stage.height * 0.822;
         this.PifuList.y = Laya.stage.height * 0.534;
         this.PifuName.y = Laya.stage.height * 0.264;
+        console.log(this.self);
+        this.self['P201'].y = Laya.stage.height * 0.18671875;
     }
 
 
@@ -361,10 +363,10 @@ export default class UIPifu extends Laya.Script {
         if (lwg.Global._goldNum < price || lwg.Global._notHavePifuSubChaoren.length <= 0) {
             if (lwg.Global._goldNum < price) {
                 // 金币不够了
-                lwg.Global._createHint(lwg.Enum.HintType.nogold, Laya.stage.width / 2, Laya.stage.height / 2);
+                lwg.Global._createHint_01(lwg.Enum.HintType.noGold);
             } else if (lwg.Global._notHavePifuSubChaoren.length <= 0) {
                 // 除了超人皮肤已经卖完了
-                lwg.Global._createHint(lwg.Enum.HintType.nopifu, Laya.stage.width / 2, Laya.stage.height / 2);
+                lwg.Global._createHint_01(lwg.Enum.HintType.noPifu);
             }
             return;
         } else {

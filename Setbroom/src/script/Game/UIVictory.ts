@@ -1,4 +1,5 @@
 import { lwg } from "../Lwg_Template/lwg";
+import ADManager from "../../TJ/Admanager";
 
 export default class UIVictory extends Laya.Script {
     // /** @prop {name:intType, tips:"整数类型示例", type:Int, default:1000}*/
@@ -54,10 +55,11 @@ export default class UIVictory extends Laya.Script {
 
     /**一些节点的适配*/
     adaptive(): void {
-        this.GetGold.y = Laya.stage.height * 0.4;
-        this.Logo.y = Laya.stage.height * 0.2648;
-        this.AccordingLv.y = Laya.stage.height * 0.134;
-        this.SetBtn.y = Laya.stage.height * 0.740;
+        this.GetGold.y = Laya.stage.height * 0.273;
+        this.Logo.y = Laya.stage.height * 0.192;
+        this.AccordingLv.y = Laya.stage.height * 0.110;
+        this.SetBtn.y = Laya.stage.height * 0.762;
+        this.self['P202'].y = Laya.stage.height * 0.494;
     }
 
     /**开场动画*/
@@ -101,7 +103,6 @@ export default class UIVictory extends Laya.Script {
 
     }
 
-
     /**开场动画回调*/
     openAniFunc(): void {
         this.btnClickOn();
@@ -138,57 +139,32 @@ export default class UIVictory extends Laya.Script {
 
     /**获取按钮点击事件*/
     btnClickOn(): void {
-        lwg.Click.on('largen', null, this.BtnGet, this, null, null, this.btnGetUp, null);
-        lwg.Click.on('noEffect', null, this.BtnSelect, this, this.btnSelectDown, null, null, null);
+        lwg.Click.on('largen', null, this.self['BtnAdv'], this, null, null, this.btnAdvUp, null);
+        lwg.Click.on('noEffect', null, this.self['BtnNo'], this, this.btnNoUp, null, null, null);
         lwg.Click.on('largen', null, this.BtnSet, this, null, null, this.btnSetUP, null);
     }
 
-    /**选择按钮*/
-    btnSelectDown(event): void {
+    btnNoUp(event): void {
         event.currentTarget.scale(1, 1);
-        let select = this.BtnSelect.getChildByName('select') as Laya.Sprite;
-        if (select.visible) {
-            select.visible = false;
-        } else {
-            select.visible = true;
-        }
+        let getLebel = this.GetGold.getChildByName('Num') as Laya.Label;
+        lwg.Global._goldNum += Number(getLebel.text);
+        this.openPifuXianding();
+        this.self.close();
+        lwg.LocalStorage.addData();
     }
 
-    /**领取奖励按钮*/
-    btnGetUp(event): void {
+    btnAdvUp(event): void {
         event.currentTarget.scale(1, 1);
-        let select = this.BtnSelect.getChildByName('select') as Laya.Sprite;
-        if (select.visible) {
-            if (!lwg.Global._whetherAdv) {
-                lwg.Global._createHint(lwg.Enum.HintType.noAdv, Laya.stage.width / 2, Laya.stage.height / 2);
-            } else {
-                console.log('看广告10倍领取');
-                this.advFunc();
-            }
-        } else {
-            console.log('不看广告！');
-            let getLebel = this.GetGold.getChildByName('Num') as Laya.Label;
-            lwg.Global._goldNum += Number(getLebel.text);
-            this.openPifuXianding();
-
-            lwg.LocalStorage.addData();
-        }
-    }
-
-    /**
-     * 金币领取动画,在金币位置爆炸出一堆金币，然后飞向金币资源的位置
-     * */
-    getGoldAni(): void {
-        for (let index = 0; index < 20; index++) {
-            // const element = array[index];
-
-        }
+        ADManager.ShowReward(() => {
+            this.advFunc();
+        })
     }
 
     /**看完广告后的回调,10倍领取*/
     advFunc(): void {
         let getLebel = this.GetGold.getChildByName('Num') as Laya.Label;
         lwg.Global._goldNum += Number(getLebel.text) * 10;
+        lwg.Global.UIMain['UIMain'].currentPifuSet();//更换皮肤
         lwg.LocalStorage.addData();
         if (lwg.Global.pingceV) {
             return;
@@ -199,13 +175,11 @@ export default class UIVictory extends Laya.Script {
     /**判断是否弹出限定皮肤界面*/
     openPifuXianding(): void {
         // 注意换装,以防是试用皮肤
-        lwg.Global.UIMain['UIMain'].currentPifuSet();//更换皮肤
         if ((lwg.Global._gameLevel - 1) % lwg.Global._checkpointInterval === 1 && lwg.Global._watchAdsNum < 3) {
             lwg.Global._openInterface('UIXDpifu', null, null);
         } else {
             lwg.Global._openInterface('UIStart', this.self, f => { });
         }
-        this.self.close();
     }
 
     /**设置按钮抬起*/

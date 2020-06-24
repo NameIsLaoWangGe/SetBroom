@@ -1,4 +1,5 @@
 import { lwg } from "../Lwg_Template/lwg";
+import ADManager from "../../TJ/Admanager";
 
 export default class UIPifuTry extends Laya.Script {
     /**指代挂载当前脚本的节点*/
@@ -31,7 +32,6 @@ export default class UIPifuTry extends Laya.Script {
 
         this.randomNoHave();
         this.btnClickOn();
-        this.advBtnSelect();
         this.adaptive();
         this.openAni();
     }
@@ -62,25 +62,6 @@ export default class UIPifuTry extends Laya.Script {
             });
         });
 
-    }
-
-
-    /**初始化广告选择按钮*/
-    advBtnSelect(): void {
-        console.log(lwg.Global._gameOverAdvModel);
-        let dec = this.BtnSelect.getChildByName('dec') as Laya.Image;
-        if (lwg.Global._gameOverAdvModel === 1) {
-            dec.skin = 'pifushiyong/word_advget.png';
-            this.BtnZanshi.skin = 'pifushiyong/word_zanshi.png';
-        } else if (lwg.Global._gameOverAdvModel === 2) {
-            dec.skin = 'pifushiyong/word_advnoget.png';
-            this.BtnZanshi.skin = 'pifushiyong/word_zanshino.png';
-        }
-        if (lwg.Global._gameOverAdvModel === 1) {
-            lwg.Global._gameOverAdvModel = 2;
-        } else {
-            lwg.Global._gameOverAdvModel = 1;
-        }
     }
 
     /**找出还没有获得的皮肤,不包括超人*/
@@ -138,80 +119,32 @@ export default class UIPifuTry extends Laya.Script {
 
     /**游戏开始按钮*/
     btnClickOn(): void {
-        lwg.Click.on('largen', null, this.BtnAdv, this, null, null, this.btnAdvClickUp, null);
-        lwg.Click.on('noEffect', null, this.BtnSelect, this, this.btnSelectClickDown, null, null, null);
-        lwg.Click.on('largen', null, this.BtnZanshi, this, null, null, this.btnZanshiClickUp, null);
+        console.log(this.self['BtnAdv']);
+        lwg.Click.on('largen', null, this.self['BtnClose'], this, null, null, this.btnCloseClickUp, null);
+        lwg.Click.on('largen', null, this.self['BtnSelect'], this, null, null, this.btnAdvClickUp, null);
+        lwg.Click.on('largen', null, this.self['BtnAdv'], this, null, null, this.btnAdvClickUp, null);
+        lwg.Click.on('largen', null, this.BtnZanshi, this, null, null, this.btnAdvClickUp, null);
     }
-
-    /**开始游戏按钮抬起*/
-    btnAdvClickUp(event): void {
-        // 记录原来的皮肤，数据中还需换回
-        if (!lwg.Global._whetherAdv) {
-            lwg.Global._createHint(lwg.Enum.HintType.noAdv, Laya.stage.width / 2, Laya.stage.height / 2);
-        } else {
-            console.log('看广告！');
-            this.advFunc();
-        }
-    }
-
-    /**广告选定按钮事件*/
-    btnSelectClickDown(): void {
-        let select = this.BtnSelect.getChildByName('select') as Laya.Sprite;
-        if (select.visible) {
-            select.visible = false;
-        } else {
-            select.visible = true;
-        }
-        // 更换按钮下方文字按钮的字体样式
-        let url1 = 'pifushiyong/word_zanshi.png';
-        let url2 = 'pifushiyong/word_zanshino.png';
-        if (this.BtnZanshi.skin === url1) {
-            this.BtnZanshi.skin = url2;
-        } else if (this.BtnZanshi.skin === url2) {
-            this.BtnZanshi.skin = url1;
-        }
-    }
-
-    /**暂时文字按钮点击事件*/
-    btnZanshiClickUp(): void {
-        let url1 = 'pifushiyong/word_zanshi.png';
-        let url2 = 'pifushiyong/word_zanshino.png';
-        if (this.BtnZanshi.skin === url1) {
-            if (!lwg.Global._whetherAdv) {
-                lwg.Global._createHint(lwg.Enum.HintType.noAdv, Laya.stage.width / 2, Laya.stage.height / 2);
-            } else {
-                console.log('看广告！');
-                this.advFunc();
-            }
-        } else if (this.BtnZanshi.skin === url2) {
-            // 没有看广告，不会更换皮肤。
-            console.log('不看广告!');
-            this.nodvFunc();
-        }
-    }
-
-    /**
-     * 看完广告后的回调
-     * 皮肤更换后，把保存的皮肤还原
-    */
-    advFunc(): void {
+    btnCloseClickUp(event): void {
+        event.currentTarget.scale(1, 1);
         this.self.close();
+        lwg.Global._gameStart = true;
+    }
+    btnAdvClickUp(event): void {
+        event.currentTarget.scale(1, 1);
+        ADManager.ShowReward(() => {
+            this.advFunc();
+        })
+    }
+    advFunc(): void {
         let yuanpifu = lwg.Global._currentPifu;
         lwg.Global._currentPifu = lwg.Enum.PifuAllName[this.pifuNum];
         lwg.Global.UIMain['UIMain'].currentPifuSet();//更换皮肤
         lwg.Global._currentPifu = yuanpifu;
-        lwg.Global._gameStart = true;
-        this.self.close();
-
         lwg.LocalStorage.addData();
-    }
 
-    /**不看广告*/
-    nodvFunc(): void {
-        this.self.close();
         lwg.Global._gameStart = true;
+        this.self.close();
     }
 
-    onDisable(): void {
-    }
 }

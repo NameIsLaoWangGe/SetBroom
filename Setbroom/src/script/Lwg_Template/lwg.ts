@@ -91,7 +91,7 @@ export module lwg {
         export let _besomRotate: string;
 
         /**当前是否为评测版本,隐藏某些功能*/
-        export let pingceV: boolean = true;
+        export let pingceV: boolean = false;
 
         /**屏幕震动*/
         export function vibratingScreen(): void {
@@ -134,6 +134,36 @@ export module lwg {
         }
 
         /**
+         * 创建提示框prefab
+         * @param type 类型，也就是提示文字类型
+         */
+        export function _createHint_01(type): void {
+            let sp: Laya.Sprite;
+            Laya.loader.load('prefab/HintPre_01.json', Laya.Handler.create(this, function (prefab: Laya.Prefab) {
+                let _prefab = new Laya.Prefab();
+                _prefab.json = prefab;
+                sp = Laya.Pool.getItemByCreateFun('prefab', _prefab.create, _prefab);
+                Laya.stage.addChild(sp);
+                sp.pos(Laya.stage.width / 2, Laya.stage.height / 2);
+                let dec = sp.getChildByName('dec') as Laya.Label;
+                dec.text = Enum.HintDec[type];
+                sp.zOrder = 100;
+
+                dec.alpha = 0;
+                Animation.scale_Alpha(sp, 0, 1, 0, 1, 1, 1, 200, 0, f => {
+                    Animation.fadeOut(dec, 0, 1, 150, 0, f => {
+                        Animation.fadeOut(dec, 1, 0, 200, 800, f => {
+                            Animation.scale_Alpha(sp, 1, 1, 1, 1, 0, 0, 200, 0, f => {
+                                sp.removeSelf();
+                            });
+                        });
+                    });
+                });
+            }));
+        }
+
+
+        /**
          * 打开界面
          * @param name 界面名称
          * @param cloesScene 需要关闭的场景，如果不需要关闭，传入null
@@ -149,7 +179,7 @@ export module lwg {
                     background.height = Laya.stage.height;
                 }
 
-                console.log('打开' + openName + '场景');
+                // console.log('打开' + openName + '场景');
                 switch (openName) {
                     case 'UIVictory':
                         console.log('本关胜利');
@@ -298,18 +328,46 @@ export module lwg {
             right = 'right'
         };
 
-        /**类型描述*/
-        export enum HintDec {
+         /**提示文字的类型描述*/
+         export enum HintDec {
             '金币不够了！',
-            '没有可以卖的皮肤了！',
-            '暂无广告!',
+            '没有可以购买的皮肤了！',
+            '暂时没有广告，过会儿再试试吧！',
+            '暂无皮肤!',
+            '暂无分享!',
+            '暂无提示机会!',
+            '观看完整广告才能获取奖励哦！',
+            '通关上一关才能解锁本关！',
+            '分享成功后才能获取奖励！',
+            '分享成功',
+            '暂无视频，玩一局游戏之后分享！',
+            '消耗2点体力！',
+            '今日体力福利已领取！',
+            '分享成功，获得125金币！',
+            '限定皮肤已经获得，请前往商店查看。',
+            '分享失败！',
+            '兑换码错误！'
         }
 
-        /**类型*/
+        /**提示类型*/
         export enum HintType {
-            'nogold',
-            'nopifu',
+            'noGold',
+            'noGetPifu',
             'noAdv',
+            'noPifu',
+            'noShare',
+            'noHint',
+            'lookend',
+            'nopass',
+            'sharefail',
+            'sharesuccess',
+            'novideo',
+            'consumeEx',
+            'no_exemptExTime',
+            'shareyes',
+            "getXD",
+            "sharefailNoAward",
+            "inputerr"
         }
 
         /**点击事件类型*/
@@ -612,6 +670,31 @@ export module lwg {
                     }), 0);
                 }), 0);
             }), 0);
+        }
+
+
+        /**
+        * 放大缩小加上渐变
+        * @param target 节点
+        * @param fAlpha 初始透明度
+        * @param fScaleX 初始X大小
+        * @param fScaleY 初始Y大小
+        * @param endScaleX 最终X大小
+        * @param endScaleY 最终Y大小
+        * @param eAlpha 最终透明度
+        * @param time 花费时间
+        * @param delayed 延迟时间
+        * @param func 结束回调
+        */
+        export function scale_Alpha(target, fAlpha, fScaleX, fScaleY, eScaleX, eScaleY, eAlpha, time, delayed, func): void {
+            target.alpha = fAlpha;
+            target.scaleX = fScaleX;
+            target.scaleY = fScaleY;
+            Laya.Tween.to(target, { scaleX: eScaleX, scaleY: eScaleY, alpha: eAlpha }, time, null, Laya.Handler.create(this, function () {
+                if (func !== null) {
+                    func()
+                }
+            }), delayed);
         }
 
         /**

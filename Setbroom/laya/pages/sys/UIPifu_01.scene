@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":41,
+    "selecteID":42,
     "searchKey":"View",
     "props":{"width":720,"sceneColor":"#000000","height":1280},
     "nodeParent":-1,
-    "maxID":42,
+    "maxID":52,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -392,6 +392,152 @@
                     "child":[
                         ],
                     "$HIDDEN":false
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Box",
+            "searchKey":"Box,P201,P201",
+            "props":{"width":112,"var":"P201","name":"P201","height":138,"centerY":-414,"centerX":263,"anchorY":0.5,"anchorX":0.5},
+            "nodeParent":2,
+            "label":"P201",
+            "isOpen":false,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":42,
+            "child":[
+                {
+                    "type":"Image",
+                    "searchKey":"Image,icon",
+                    "props":{"width":102,"skin":"TJ/Promo/image/jx8.png","name":"icon","height":102,"centerY":-13,"centerX":0,"anchorY":0.5,"anchorX":0.5},
+                    "nodeParent":42,
+                    "label":"icon",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":43,
+                    "child":[
+                        {
+                            "type":"Image",
+                            "searchKey":"Image,kk",
+                            "props":{"width":112,"skin":"TJ/Promo/image/kk2.png","name":"kk","height":138,"centerY":13,"centerX":0},
+                            "nodeParent":43,
+                            "label":"kk",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":44,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Image",
+                            "searchKey":"Image,flag1",
+                            "props":{"width":23,"visible":false,"skin":"TJ/Promo/image/y1.png","name":"flag1","height":23,"centerY":-45,"centerX":45,"anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":43,
+                            "label":"flag1",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":45,
+                            "child":[
+                                ],
+                            "$HIDDEN":true
+                        },
+                        {
+                            "type":"Image",
+                            "searchKey":"Image,flag2",
+                            "props":{"width":45,"visible":false,"skin":"TJ/Promo/image/hb2.png","name":"flag2","height":23,"centerY":-44,"centerX":40,"anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":43,
+                            "label":"flag2",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":46,
+                            "child":[
+                                ],
+                            "$HIDDEN":true
+                        },
+                        {
+                            "type":"Image",
+                            "searchKey":"Image,flag3",
+                            "props":{"width":45,"visible":false,"skin":"TJ/Promo/image/rm3.png","name":"flag3","height":23,"centerY":-44,"centerX":40,"anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":43,
+                            "label":"flag3",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":47,
+                            "child":[
+                                ],
+                            "$HIDDEN":true
+                        }],
+                    "$HIDDEN":false
+                },
+                {
+                    "type":"Label",
+                    "searchKey":"Label,name",
+                    "props":{"wordWrap":false,"width":105,"valign":"middle","text":"这里是游戏名称","name":"name","multiline":false,"mouseEnabled":false,"height":18,"fontSize":15,"editable":false,"centerY":54,"centerX":0,"anchorY":0.5,"anchorX":0.5,"align":"center"},
+                    "nodeParent":42,
+                    "label":"name",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":48,
+                    "child":[
+                        ],
+                    "$HIDDEN":false
+                },
+                {
+                    "type":"Script",
+                    "switchAble":true,
+                    "source":"src/TJ/Promo/script/PromoItem.ts",
+                    "searchKey":"Script,PromoItem",
+                    "removeAble":true,
+                    "props":{},
+                    "nodeParent":42,
+                    "label":"PromoItem",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":49,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Script",
+                    "switchAble":true,
+                    "source":"src/TJ/Promo/script/ButtonScale.ts",
+                    "searchKey":"Script,ButtonScale",
+                    "removeAble":true,
+                    "props":{},
+                    "nodeParent":42,
+                    "label":"ButtonScale",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":50,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Script",
+                    "switchAble":true,
+                    "source":"src/TJ/Promo/script/P201.ts",
+                    "searchKey":"Script,P201",
+                    "removeAble":true,
+                    "props":{"shake":true},
+                    "nodeParent":42,
+                    "label":"P201",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":51,
+                    "child":[
+                        ]
                 }],
             "$HIDDEN":false
         }],

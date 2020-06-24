@@ -17,7 +17,7 @@
     "compressImageNoteList": [
         ""
     ],
-    "compressJs": true,
+    "compressJs": false,
     "compressJsFilter": [
         "$basePath/**/*.js"
     ],
@@ -64,7 +64,7 @@
     "forceCompile": false,
     "onlyIndexJS": true,
     "projectType": "ts",
-    "pubTime": 1590047534662,
+    "pubTime": 1592992652027,
     "uesEnginePlugin": false,
     "wxOptimize": {
         "useOptimizeOpen": false,

@@ -1,4 +1,5 @@
 import { lwg } from "../Lwg_Template/lwg";
+import ADManager from "../../TJ/Admanager";
 export default class UIDefeated extends Laya.Script {
     /**指代挂载当前脚本的节点*/
     private self: Laya.Scene;
@@ -85,11 +86,9 @@ export default class UIDefeated extends Laya.Script {
     /**下一关按钮抬起事件*/
     BtnLastUp(event): void {
         event.currentTarget.scale(1, 1);
-        if (!lwg.Global._whetherAdv) {
-            lwg.Global._createHint(lwg.Enum.HintType.noAdv, Laya.stage.width / 2, Laya.stage.height / 2);
-        } else {
+        ADManager.ShowReward(() => {
             this.advFunc();
-        }
+        })
     }
 
     advFunc(): void {

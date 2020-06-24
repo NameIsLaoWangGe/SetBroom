@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":7,
+    "selecteID":11,
     "searchKey":"View",
     "props":{"width":720,"sceneColor":"#000000","height":1280},
     "nodeParent":-1,
-    "maxID":46,
+    "maxID":88,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -32,7 +32,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,BtnAgain",
-            "props":{"y":834,"x":360,"width":60,"var":"BtnAgain","skin":"guoguanshibai/again_btn.png","pivotY":30,"pivotX":30,"height":60},
+            "props":{"y":863,"x":364,"width":60,"var":"BtnAgain","skin":"guoguanshibai/again_btn.png","pivotY":30,"pivotX":30,"height":60},
             "nodeParent":2,
             "label":"BtnAgain",
             "isDirectory":false,
@@ -86,7 +86,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,Logo,Logo",
-            "props":{"y":328,"x":364,"width":500,"var":"Logo","skin":"guoguanshibai/logo_defeated.png","pivotY":71,"pivotX":250,"name":"Logo","height":142,"alpha":1},
+            "props":{"y":220,"x":368,"width":500,"var":"Logo","skin":"guoguanshibai/logo_defeated.png","pivotY":71,"pivotX":250,"name":"Logo","height":142,"alpha":1},
             "nodeParent":2,
             "label":"Logo",
             "isDirectory":false,
@@ -184,6 +184,208 @@
             "compId":24,
             "child":[
                 ]
+        },
+        {
+            "x":15,
+            "type":"Box",
+            "searchKey":"Box,P202",
+            "props":{"width":552,"name":"P202","height":456,"centerY":-95,"centerX":10,"anchorY":0.5,"anchorX":0.5},
+            "nodeParent":2,
+            "label":"P202",
+            "isOpen":false,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":74,
+            "child":[
+                {
+                    "type":"Panel",
+                    "searchKey":"Panel,scroll",
+                    "props":{"top":0,"right":0,"name":"scroll","left":0,"elasticEnabled":false,"bottom":0,"anchorY":0.5,"anchorX":0.5},
+                    "nodeParent":74,
+                    "label":"scroll",
+                    "isOpen":false,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":75,
+                    "child":[
+                        {
+                            "type":"List",
+                            "searchKey":"List,layout",
+                            "props":{"y":0,"spaceY":20,"spaceX":20,"space":10,"right":0,"name":"layout","left":0,"height":470,"anchorY":0,"anchorX":0.5,"align":"middle"},
+                            "nodeParent":75,
+                            "label":"layout",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":76,
+                            "child":[
+                                {
+                                    "type":"Box",
+                                    "searchKey":"Box,item",
+                                    "props":{"y":114,"x":92,"width":164,"renderType":"render","name":"item","height":208,"anchorY":0.5,"anchorX":0.5},
+                                    "nodeParent":76,
+                                    "label":"item",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":false,
+                                    "hasChild":true,
+                                    "compId":77,
+                                    "child":[
+                                        {
+                                            "type":"Image",
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":140,"skin":"TJ/Promo/image/jx8.png","name":"icon","height":140,"centerY":-22,"centerX":0,"anchorY":0.5,"anchorX":0.5},
+                                            "nodeParent":77,
+                                            "label":"icon",
+                                            "isOpen":true,
+                                            "isDirectory":true,
+                                            "isAniNode":false,
+                                            "hasChild":true,
+                                            "compId":78,
+                                            "child":[
+                                                {
+                                                    "type":"Image",
+                                                    "searchKey":"Image,kk",
+                                                    "props":{"width":164,"skin":"TJ/Promo/image/kk3.png","name":"kk","height":208,"centerY":22,"centerX":0},
+                                                    "nodeParent":78,
+                                                    "label":"kk",
+                                                    "isDirectory":false,
+                                                    "isAniNode":false,
+                                                    "hasChild":false,
+                                                    "compId":79,
+                                                    "child":[
+                                                        ]
+                                                },
+                                                {
+                                                    "type":"Image",
+                                                    "searchKey":"Image,flag1",
+                                                    "props":{"width":83,"visible":false,"skin":"TJ/Promo/image/new2.png","name":"flag1","height":83,"centerY":-39,"centerX":39,"anchorY":0.5,"anchorX":0.5},
+                                                    "nodeParent":78,
+                                                    "label":"flag1",
+                                                    "isDirectory":false,
+                                                    "isAniNode":false,
+                                                    "hasChild":false,
+                                                    "compId":80,
+                                                    "child":[
+                                                        ],
+                                                    "$HIDDEN":true
+                                                },
+                                                {
+                                                    "type":"Image",
+                                                    "searchKey":"Image,flag2",
+                                                    "props":{"width":83,"visible":false,"skin":"TJ/Promo/image/remen1.png","name":"flag2","height":83,"centerY":-39,"centerX":39,"anchorY":0.5,"anchorX":0.5},
+                                                    "nodeParent":78,
+                                                    "label":"flag2",
+                                                    "isDirectory":false,
+                                                    "isAniNode":false,
+                                                    "hasChild":false,
+                                                    "compId":81,
+                                                    "child":[
+                                                        ],
+                                                    "$HIDDEN":true
+                                                },
+                                                {
+                                                    "type":"Image",
+                                                    "searchKey":"Image,flag3",
+                                                    "props":{"width":83,"visible":false,"skin":"TJ/Promo/image/tuijian2.png","name":"flag3","height":83,"centerY":-39,"centerX":39,"anchorY":0.5,"anchorX":0.5},
+                                                    "nodeParent":78,
+                                                    "label":"flag3",
+                                                    "isDirectory":false,
+                                                    "isAniNode":false,
+                                                    "hasChild":false,
+                                                    "compId":82,
+                                                    "child":[
+                                                        ],
+                                                    "$HIDDEN":true
+                                                }],
+                                            "$HIDDEN":false
+                                        },
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,name",
+                                            "props":{"wordWrap":false,"width":164,"valign":"middle","text":"这里是游戏名称","name":"name","multiline":false,"mouseEnabled":false,"height":19,"fontSize":16,"editable":false,"color":"#ffffff","centerY":65,"centerX":0,"anchorY":0.5,"anchorX":0.5,"align":"center"},
+                                            "nodeParent":77,
+                                            "label":"name",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":83,
+                                            "child":[
+                                                ],
+                                            "$HIDDEN":false
+                                        },
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,info",
+                                            "props":{"wordWrap":false,"width":164,"valign":"middle","text":"1, 254, 546人在玩","name":"info","multiline":false,"mouseEnabled":false,"height":18,"fontSize":15,"editable":false,"color":"#ffffff","centerY":88,"centerX":0,"anchorY":0.5,"anchorX":0.5,"align":"center"},
+                                            "nodeParent":77,
+                                            "label":"info",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":84,
+                                            "child":[
+                                                ],
+                                            "$HIDDEN":false
+                                        },
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/TJ/Promo/script/PromoItem.ts",
+                                            "searchKey":"Script,PromoItem",
+                                            "removeAble":true,
+                                            "props":{},
+                                            "nodeParent":77,
+                                            "label":"PromoItem",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":85,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/TJ/Promo/script/ButtonScale.ts",
+                                            "searchKey":"Script,ButtonScale",
+                                            "removeAble":true,
+                                            "props":{},
+                                            "nodeParent":77,
+                                            "label":"ButtonScale",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":86,
+                                            "child":[
+                                                ]
+                                        }],
+                                    "$HIDDEN":false
+                                }],
+                            "$HIDDEN":false
+                        }],
+                    "$HIDDEN":false
+                },
+                {
+                    "type":"Script",
+                    "switchAble":true,
+                    "source":"src/TJ/Promo/script/P202.ts",
+                    "searchKey":"Script,P202",
+                    "removeAble":true,
+                    "props":{},
+                    "nodeParent":74,
+                    "label":"P202",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":87,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
         }],
     "animations":[
         {

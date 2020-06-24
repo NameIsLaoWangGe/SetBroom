@@ -1,0 +1,14 @@
+{
+  "code": "import PromoOpen from \"./TJ/Promo/script/PromoOpen\";\r\nimport ButtonScale from \"./TJ/Promo/script/ButtonScale\";\r\nimport PromoItem from \"./TJ/Promo/script/PromoItem\";\r\nimport P201 from \"./TJ/Promo/script/P201\";\r\nimport P202 from \"./TJ/Promo/script/P202\";\r\nimport P103 from \"./TJ/Promo/script/P103\";\r\nimport P204 from \"./TJ/Promo/script/P204\";\r\nimport P205 from \"./TJ/Promo/script/P205\";\r\nimport P106 from \"./TJ/Promo/script/P106\";\r\nexport default class GameConfig {\r\n    constructor() { }\r\n    static init() {\r\n        var reg = Laya.ClassUtils.regClass;\r\n        reg(\"TJ/Promo/script/PromoOpen.ts\", PromoOpen);\r\n        reg(\"TJ/Promo/script/ButtonScale.ts\", ButtonScale);\r\n        reg(\"TJ/Promo/script/PromoItem.ts\", PromoItem);\r\n        reg(\"TJ/Promo/script/P201.ts\", P201);\r\n        reg(\"TJ/Promo/script/P202.ts\", P202);\r\n        reg(\"TJ/Promo/script/P103.ts\", P103);\r\n        reg(\"TJ/Promo/script/P204.ts\", P204);\r\n        reg(\"TJ/Promo/script/P205.ts\", P205);\r\n        reg(\"TJ/Promo/script/P106.ts\", P106);\r\n    }\r\n}\r\nGameConfig.width = 720;\r\nGameConfig.height = 1280;\r\nGameConfig.scaleMode = \"fixedauto\";\r\nGameConfig.screenMode = \"none\";\r\nGameConfig.alignV = \"middle\";\r\nGameConfig.alignH = \"center\";\r\nGameConfig.startScene = \"Promo.scene\";\r\nGameConfig.sceneRoot = \"\";\r\nGameConfig.debug = false;\r\nGameConfig.stat = false;\r\nGameConfig.physicsDebug = false;\r\nGameConfig.exportSceneToJson = true;\r\nGameConfig.init();\r\n",
+  "references": [
+    "C:/Users/tomato/Desktop/7777777/TJ3Demo_Promo/src/TJ/Promo/script/PromoOpen.ts",
+    "C:/Users/tomato/Desktop/7777777/TJ3Demo_Promo/src/TJ/Promo/script/ButtonScale.ts",
+    "C:/Users/tomato/Desktop/7777777/TJ3Demo_Promo/src/TJ/Promo/script/PromoItem.ts",
+    "C:/Users/tomato/Desktop/7777777/TJ3Demo_Promo/src/TJ/Promo/script/P201.ts",
+    "C:/Users/tomato/Desktop/7777777/TJ3Demo_Promo/src/TJ/Promo/script/P202.ts",
+    "C:/Users/tomato/Desktop/7777777/TJ3Demo_Promo/src/TJ/Promo/script/P103.ts",
+    "C:/Users/tomato/Desktop/7777777/TJ3Demo_Promo/src/TJ/Promo/script/P204.ts",
+    "C:/Users/tomato/Desktop/7777777/TJ3Demo_Promo/src/TJ/Promo/script/P205.ts",
+    "C:/Users/tomato/Desktop/7777777/TJ3Demo_Promo/src/TJ/Promo/script/P106.ts"
+  ]
+}

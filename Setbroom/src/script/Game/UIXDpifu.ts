@@ -1,5 +1,6 @@
 import { lwg } from "../Lwg_Template/lwg";
 import UIStart from "./UIStart";
+import ADManager from "../../TJ/Admanager";
 
 export default class UIXDpifu extends Laya.Script {
     /**指代当前挂载脚本的节点*/
@@ -88,11 +89,9 @@ export default class UIXDpifu extends Laya.Script {
     /**看广告按钮抬起*/
     btnGetClickUp(event): void {
         event.currentTarget.scale(1, 1);
-        if (!lwg.Global._whetherAdv) {
-            lwg.Global._createHint(lwg.Enum.HintType.noAdv, Laya.stage.width / 2, Laya.stage.height / 2);
-        } else {
+        ADManager.ShowReward(() => {
             this.advFunc();
-        }
+        })
     }
 
     /**看完广告的返回函数*/

@@ -77,8 +77,6 @@ export default class UIStart extends Laya.Script {
         this.btnClickOn();
     }
 
-
-
     /**找出还没有获得的皮肤,不包括超人*/
     noHaveSubChaoren(): void {
         // 所有皮肤赋值给新数组
@@ -215,6 +213,7 @@ export default class UIStart extends Laya.Script {
         if (lwg.Global._notHavePifuSubChaoren.length === 0) {
             lwg.Global._gameStart = true;
         } else {
+            console.log('出现皮肤试用！');
             lwg.Global._openInterface('UIPifuTry', this.self, null);
         }
         this.self.close();
