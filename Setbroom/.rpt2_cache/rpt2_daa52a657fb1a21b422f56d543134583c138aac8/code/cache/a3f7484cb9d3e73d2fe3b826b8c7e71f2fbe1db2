@@ -1,0 +1,6 @@
+{
+  "code": "import { Clicks } from \"./Tep/Clicks\";\r\nexport default class UIStart extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.self = this.owner;\r\n        this.BtnStart = this.self['BtnStart'];\r\n        this.self['UIStart'] = this;\r\n        console.log('打开开始界面');\r\n        this.BtnStartClickOn();\r\n    }\r\n    BtnStartClickOn() {\r\n        Clicks.clicksOn('largen', null, this.BtnStart, this, null, null, this.BtnStartClickUP, null);\r\n    }\r\n    BtnStartClickUP() {\r\n        this.self.close();\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Tep/Clicks.ts"
+  ]
+}

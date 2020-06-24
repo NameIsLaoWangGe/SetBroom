@@ -1,0 +1,6 @@
+{
+  "code": "import { Clicks } from \"./Tep/Clicks\";\r\nexport default class UIVictory extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.self = this.owner;\r\n        this.BtnGet = this.owner['BtnGet'];\r\n        this.BtnGetOnClick();\r\n    }\r\n    BtnGetOnClick() {\r\n        Clicks.clicksOn('largen', null, this.BtnGet, this, null, null, this.BtnGetUp, null);\r\n    }\r\n    BtnGetUp() {\r\n        this.self.close();\r\n        Laya.Scene.open('sys/UIStart.json', true, null, Laya.Handler.create(this, function name(Scene) {\r\n            Laya.stage.addChild(Scene);\r\n            console.log('回到准备游戏界面!');\r\n        }));\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Tep/Clicks.ts"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "code": "import UIMain from './UIMain';\r\nimport { Global } from './Tep/Global';\r\nexport default class UILoding extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.lodeMianScene3D();\r\n    }\r\n    lodeMianScene3D() {\r\n        Laya.Scene3D.load(\"testScene/LayaScene_GameMain/Conventional/GameMain.ls\", Laya.Handler.create(this, this.MianSceneOnComplete));\r\n    }\r\n    MianSceneOnComplete(scene) {\r\n        Laya.stage.addChild(scene);\r\n        this.MianScene = scene;\r\n        scene.addComponent(UIMain);\r\n        Laya.MouseManager.multiTouchEnabled = false;\r\n        Global.openInterface('UIStart', null, null);\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/UIMain.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Tep/Global.ts"
+  ]
+}

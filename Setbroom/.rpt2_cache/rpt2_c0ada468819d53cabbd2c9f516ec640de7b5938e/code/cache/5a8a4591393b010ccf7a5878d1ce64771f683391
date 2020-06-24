@@ -1,0 +1,6 @@
+{
+  "code": "import { lwg } from \"../Lwg_Template/lwg\";\r\nexport default class UITask extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.TaskTime = this.owner['TaskTime'];\r\n        this.Describe = this.owner['Describe'];\r\n        this.TaskNum = this.owner['TaskNum'];\r\n        this.TaskContent = this.owner['TaskContent'];\r\n        this.TaskLine = this.owner['TaskLine'];\r\n        this.self = this.owner;\r\n        this.sontentSet();\r\n    }\r\n    sontentSet() {\r\n        let tasklen = lwg.Global._taskContentArray.length;\r\n        this.TaskNum.text = '[' + tasklen + '/' + tasklen + ']';\r\n        let task = lwg.Global._taskContentArray[0];\r\n        if (task) {\r\n            if (task['type'] === lwg.Enum.TaskType.continue) {\r\n            }\r\n            else if (task['type'] === lwg.Enum.TaskType.topUp) {\r\n            }\r\n            else if (task['type'] === lwg.Enum.TaskType.move) {\r\n            }\r\n        }\r\n    }\r\n    onDisable() {\r\n    }\r\n    onUpdate() {\r\n        this.TaskTime.text = lwg.Global._taskTime;\r\n        if (this.TaskTime.text === '0s' || !lwg.Global._gameStart) {\r\n            this.self.close();\r\n        }\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Lwg_Template/lwg.ts"
+  ]
+}

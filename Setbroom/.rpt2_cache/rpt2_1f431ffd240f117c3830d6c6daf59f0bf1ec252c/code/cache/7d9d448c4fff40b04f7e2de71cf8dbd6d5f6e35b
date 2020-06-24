@@ -1,0 +1,4 @@
+{
+  "code": "export default class Hand extends Laya.Script3D {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.self = this.owner;\r\n        this.rig = this.self.getComponent(Laya.Rigidbody3D);\r\n        this.transForm = this.self.transform;\r\n        this.transForm.translate(new Laya.Vector3(0, -0.5, 0));\r\n        this.handParameters();\r\n    }\r\n    handParameters() {\r\n        this.rig.friction = 10;\r\n        this.rig.restitution = -20;\r\n        this.rig.gravity = (new Laya.Vector3(0, 0, 0));\r\n        this.rig.mass = 1000;\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": []
+}

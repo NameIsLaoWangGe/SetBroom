@@ -1,0 +1,7 @@
+{
+  "code": "import { Clicks } from \"./Tep/Clicks\";\r\nimport { Global } from \"./Tep/Global\";\r\nexport default class UIDefeated extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.self = this.owner;\r\n        this.BtnAgain = this.self['BtnAgain'];\r\n        this.BtnLast = this.self['BtnLast'];\r\n        this.btnOnClick();\r\n    }\r\n    btnOnClick() {\r\n        Clicks.clicksOn('largen', null, this.BtnAgain, this, null, null, this.BtnAgainUp, null);\r\n        Clicks.clicksOn('largen', null, this.BtnLast, this, null, null, this.BtnLastUp, null);\r\n    }\r\n    BtnAgainUp() {\r\n        this.self.close();\r\n        Global._gameTime = 0;\r\n        Global._startGame = true;\r\n    }\r\n    BtnLastUp() {\r\n        Global.openInterface('UIStart', this.self, null);\r\n        Global._gameTime = 0;\r\n        Global._startGame = false;\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Tep/Clicks.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Tep/Global.ts"
+  ]
+}

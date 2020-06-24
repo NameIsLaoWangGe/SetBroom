@@ -1,0 +1,4 @@
+{
+  "code": "export default class UIVictory extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.BtnGet = this.owner['BtnGet'];\r\n        console.log(this.BtnGet);\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": []
+}

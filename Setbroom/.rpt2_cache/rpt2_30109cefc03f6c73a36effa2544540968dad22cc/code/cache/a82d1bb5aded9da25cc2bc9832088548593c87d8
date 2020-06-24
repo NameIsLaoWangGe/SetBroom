@@ -1,0 +1,7 @@
+{
+  "code": "import UIMain from './UIMain';\r\nimport { lwg } from '../Lwg_Template/lwg';\r\nexport default class UILoding extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.DataLoading_Levels();\r\n    }\r\n    DataLoading_Levels() {\r\n        Laya.loader.load(\"Data/levelsData.json\", Laya.Handler.create(this, this.LevelsOnLoaded), null, Laya.Loader.JSON);\r\n    }\r\n    LevelsOnLoaded() {\r\n        lwg.Global._levelsData = Laya.loader.getRes(\"Data/levelsData.json\")[\"RECORDS\"];\r\n        Laya.MouseManager.multiTouchEnabled = false;\r\n        this.lodeMianScene3D();\r\n    }\r\n    lodeMianScene3D() {\r\n        Laya.Scene3D.load(\"testScene/LayaScene_GameMain/Conventional/GameMain.ls\", Laya.Handler.create(this, this.MianSceneOnComplete));\r\n    }\r\n    MianSceneOnComplete(scene) {\r\n        Laya.stage.addChild(scene);\r\n        this.MianScene = scene;\r\n        scene.addComponent(UIMain);\r\n        lwg.Global.openInterface('UIStart', null, null);\r\n        this.lodeUserInfo();\r\n    }\r\n    lodeUserInfo() {\r\n        lwg.Global._goldNum = 0;\r\n        lwg.Global._gameLevel = 1;\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UIMain.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Lwg_Template/lwg.ts"
+  ]
+}

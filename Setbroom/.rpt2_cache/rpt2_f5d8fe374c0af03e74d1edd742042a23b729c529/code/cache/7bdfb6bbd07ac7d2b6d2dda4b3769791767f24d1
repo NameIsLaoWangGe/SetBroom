@@ -1,0 +1,6 @@
+{
+  "code": "import UIVictory from './UIVictory';\r\nexport default class UIMain extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n    }\r\n    onComplete(scene) {\r\n        console.log('你好！');\r\n        Laya.stage.addChild(scene);\r\n        scene.addComponent(UIVictory);\r\n        console.log(Laya.stage);\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/UIVictory.ts"
+  ]
+}

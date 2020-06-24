@@ -1,0 +1,7 @@
+{
+  "code": "import SceneControl from \"./script/SceneControl\";\r\nimport UIStart from \"./script/UIStart\";\r\nexport default class GameConfig {\r\n    constructor() { }\r\n    static init() {\r\n        var reg = Laya.ClassUtils.regClass;\r\n        reg(\"script/SceneControl.ts\", SceneControl);\r\n        reg(\"script/UIStart.ts\", UIStart);\r\n    }\r\n}\r\nGameConfig.width = 720;\r\nGameConfig.height = 1280;\r\nGameConfig.scaleMode = \"fixedwidth\";\r\nGameConfig.screenMode = \"vertical\";\r\nGameConfig.alignV = \"top\";\r\nGameConfig.alignH = \"left\";\r\nGameConfig.startScene = \"sys/SceneControl.scene\";\r\nGameConfig.sceneRoot = \"\";\r\nGameConfig.debug = false;\r\nGameConfig.stat = true;\r\nGameConfig.physicsDebug = true;\r\nGameConfig.exportSceneToJson = true;\r\nGameConfig.init();\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/SceneControl.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/UIStart.ts"
+  ]
+}

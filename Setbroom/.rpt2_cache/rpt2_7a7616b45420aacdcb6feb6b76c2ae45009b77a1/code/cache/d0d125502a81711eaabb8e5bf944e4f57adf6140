@@ -1,0 +1,4 @@
+{
+  "code": "export default class GameConfig {\r\n    constructor() { }\r\n    static init() {\r\n        var reg = Laya.ClassUtils.regClass;\r\n    }\r\n}\r\nGameConfig.width = 720;\r\nGameConfig.height = 1280;\r\nGameConfig.scaleMode = \"fixedwidth\";\r\nGameConfig.screenMode = \"vertical\";\r\nGameConfig.alignV = \"top\";\r\nGameConfig.alignH = \"left\";\r\nGameConfig.startScene = \"sys/UIMain.scene\";\r\nGameConfig.sceneRoot = \"\";\r\nGameConfig.debug = false;\r\nGameConfig.stat = true;\r\nGameConfig.physicsDebug = true;\r\nGameConfig.exportSceneToJson = true;\r\nGameConfig.init();\r\n",
+  "references": []
+}

@@ -1,0 +1,7 @@
+{
+  "code": "export default class GameControl extends Laya.Script3D {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.self = this.owner;\r\n        this.camera = this.self.getChildAt(0);\r\n        this.light = this.self.getChildAt(1);\r\n        this.ground = this.self.getChildAt(2);\r\n        this.person = this.self.getChildAt(3);\r\n        this.rightArm = this.person.getChildAt(4);\r\n        this.leftArm = this.person.getChildAt(5);\r\n        this.self['GameControl'] = this;\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Hand.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Besom.ts"
+  ]
+}

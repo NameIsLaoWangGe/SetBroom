@@ -1,0 +1,6 @@
+{
+  "code": "import { lwg } from \"../Lwg_Template/lwg\";\r\nexport default class UIMain_Gold extends Laya.Script3D {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.self = this.owner;\r\n        let selfCol = this.self.getComponent(Laya.PhysicsCollider);\r\n        selfCol.isTrigger = true;\r\n    }\r\n    onCollisionEnter(other) {\r\n    }\r\n    onTriggerStay(other) {\r\n        console.log(other);\r\n    }\r\n    onDisable() {\r\n    }\r\n    onUpdate() {\r\n        this.self.transform.localRotationEulerZ += 2;\r\n        let besom = lwg.Global.UIMain['UIMain'].Besom;\r\n        let besomHead = besom.getChildByName('head');\r\n        let diffX = this.self.transform.position.x - besomHead.transform.position.x;\r\n        let diffY = this.self.transform.position.y - besomHead.transform.position.y;\r\n        if (Math.abs(diffX) < 0.10 && Math.abs(diffY) < 0.10) {\r\n            lwg.Global._taskGoldNum++;\r\n            this.self.removeSelf();\r\n        }\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Lwg_Template/lwg.ts"
+  ]
+}

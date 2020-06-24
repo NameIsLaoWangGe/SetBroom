@@ -1,0 +1,6 @@
+{
+  "code": "import { lwg } from \"../Lwg_Template/lwg\";\r\nexport default class UIXDpifu extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.self = this.owner;\r\n        this.BtnBack = this.self['BtnBack'];\r\n        this.BtnGet = this.self['BtnGet'];\r\n        this.btnClickOn();\r\n    }\r\n    btnClickOn() {\r\n        lwg.Click.on('largen', null, this.BtnBack, this, null, null, this.btnBackClickUp, null);\r\n        lwg.Click.on('largen', null, this.BtnGet, this, null, null, this.btnGetClickUp, null);\r\n    }\r\n    btnBackClickUp(event) {\r\n        event.currentTarget.scale(1, 1);\r\n        this.self.close();\r\n    }\r\n    btnGetClickUp(event) {\r\n        event.currentTarget.scale(1, 1);\r\n        lwg.Global.watchAdsNum -= 1;\r\n        if (lwg.Global.watchAdsNum <= 0) {\r\n            this.self.close();\r\n            lwg.Global._havePifu.push('09_chaoren');\r\n            lwg.Global._currentPifu = lwg.Enum.PifuAllName[8];\r\n            lwg.Global.UIMain['UIMain'].currentPifuSet();\r\n            lwg.Global.UIStart['UIStart'].pifuXianding();\r\n        }\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Lwg_Template/lwg.ts"
+  ]
+}

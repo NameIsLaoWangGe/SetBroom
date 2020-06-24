@@ -1,0 +1,15 @@
+{
+  "code": "import UIDefeated from \"./script/Game/UIDefeated\";\r\nimport UILoding from \"./script/Game/UILoding\";\r\nimport UIPifu from \"./script/Game/UIPifu\";\r\nimport UIPifuTry from \"./script/Game/UIPifuTry\";\r\nimport UISet from \"./script/Game/UISet\";\r\nimport UIStart from \"./script/Game/UIStart\";\r\nimport UITask from \"./script/Game/UITask\";\r\nimport UIVictory from \"./script/Game/UIVictory\";\r\nimport UIXDpifu from \"./script/Game/UIXDpifu\";\r\nimport HintPre from \"./script/Game/HintPre\";\r\nexport default class GameConfig {\r\n    constructor() { }\r\n    static init() {\r\n        var reg = Laya.ClassUtils.regClass;\r\n        reg(\"script/Game/UIDefeated.ts\", UIDefeated);\r\n        reg(\"script/Game/UILoding.ts\", UILoding);\r\n        reg(\"script/Game/UIPifu.ts\", UIPifu);\r\n        reg(\"script/Game/UIPifuTry.ts\", UIPifuTry);\r\n        reg(\"script/Game/UISet.ts\", UISet);\r\n        reg(\"script/Game/UIStart.ts\", UIStart);\r\n        reg(\"script/Game/UITask.ts\", UITask);\r\n        reg(\"script/Game/UIVictory.ts\", UIVictory);\r\n        reg(\"script/Game/UIXDpifu.ts\", UIXDpifu);\r\n        reg(\"script/Game/HintPre.ts\", HintPre);\r\n    }\r\n}\r\nGameConfig.width = 720;\r\nGameConfig.height = 1280;\r\nGameConfig.scaleMode = \"fixedwidth\";\r\nGameConfig.screenMode = \"vertical\";\r\nGameConfig.alignV = \"top\";\r\nGameConfig.alignH = \"left\";\r\nGameConfig.startScene = \"sys/UILoding.scene\";\r\nGameConfig.sceneRoot = \"\";\r\nGameConfig.debug = false;\r\nGameConfig.stat = false;\r\nGameConfig.physicsDebug = false;\r\nGameConfig.exportSceneToJson = true;\r\nGameConfig.init();\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UIDefeated.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UILoding.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UIPifu.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UIPifuTry.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UISet.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UIStart.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UITask.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UIVictory.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/UIXDpifu.ts",
+    "D:/Game/project/SetBroom/Setbroom/src/script/Game/HintPre.ts"
+  ]
+}

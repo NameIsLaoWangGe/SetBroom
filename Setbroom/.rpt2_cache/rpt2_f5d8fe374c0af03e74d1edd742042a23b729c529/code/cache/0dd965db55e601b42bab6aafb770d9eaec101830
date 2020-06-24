@@ -1,0 +1,6 @@
+{
+  "code": "import UIMain from './UIMain';\r\nexport default class SceneControl extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.lodeMianScene3D();\r\n    }\r\n    lodeMianScene3D() {\r\n        Laya.Scene3D.load(\"testScene/LayaScene_GameMain/Conventional/GameMain.ls\", Laya.Handler.create(this, this.MianSceneOnComplete));\r\n    }\r\n    MianSceneOnComplete(scene) {\r\n        Laya.stage.addChild(scene);\r\n        this.MianScene = scene;\r\n        this.MianScene.addComponent(UIMain);\r\n        Laya.MouseManager.multiTouchEnabled = false;\r\n        console.log('打开游戏场景');\r\n        Laya.Scene.load('sys/UIStart.json', Laya.Handler.create(this, this.ReadySceneOnComplete));\r\n    }\r\n    ReadySceneOnComplete(scene) {\r\n        Laya.stage.addChild(scene);\r\n        console.log('打开准备开始场景');\r\n        console.log(Laya.stage);\r\n    }\r\n    onDisable() {\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/UIMain.ts"
+  ]
+}

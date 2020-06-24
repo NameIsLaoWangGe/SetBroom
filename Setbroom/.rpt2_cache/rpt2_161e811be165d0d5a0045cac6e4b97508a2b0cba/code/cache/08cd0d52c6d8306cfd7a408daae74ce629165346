@@ -1,0 +1,6 @@
+{
+  "code": "import { Global } from \"./Tep/Global\";\r\nexport default class UIDes extends Laya.Script {\r\n    constructor() { super(); }\r\n    onEnable() {\r\n        this.time = this.owner['Time'];\r\n        this.self = this.owner;\r\n    }\r\n    onDisable() {\r\n    }\r\n    onUpdate() {\r\n        this.time.text = Global._taskNum;\r\n        if (this.time.text === '0s') {\r\n            this.self.close();\r\n        }\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/script/Tep/Global.ts"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "code": "import { ui } from \"./../ui/layaMaxUI\";\r\nexport default class GameUI extends ui.test.TestSceneUI {\r\n    constructor() {\r\n        super();\r\n        let selfScene = this.newScene;\r\n        Laya.Sprite3D.load(\"testScene/Conventional/LevelEditorScene.ls\", Laya.Handler.create(this, this.onComplete));\r\n    }\r\n    onComplete(scene) {\r\n        Laya.stage.addChild(scene);\r\n        this.newScene = scene;\r\n        this.besom = scene.getChildAt(3);\r\n        this.hand = scene.getChildAt(4);\r\n        console.log(this.besom);\r\n        console.log(this.hand);\r\n        console.log(scene);\r\n    }\r\n    addBox() {\r\n        var box = this.newScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(0.75, 0.5, 0.5)));\r\n        box.meshRenderer.material = this.mat1;\r\n        var transform = box.transform;\r\n        var pos = transform.position;\r\n        pos.setValue(0, 10, 0);\r\n        transform.position = pos;\r\n        var rigidBody = box.addComponent(Laya.Rigidbody3D);\r\n        var boxShape = new Laya.BoxColliderShape(0.75, 0.5, 0.5);\r\n        rigidBody.colliderShape = boxShape;\r\n        rigidBody.mass = 10;\r\n    }\r\n}\r\n",
+  "references": [
+    "D:/Game/project/SetBroom/Setbroom/src/ui/layaMaxUI.ts"
+  ]
+}
