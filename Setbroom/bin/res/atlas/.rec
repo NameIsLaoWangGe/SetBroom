@@ -62,6 +62,7 @@ P 1FFD110F logo_defeated.png
 P B70F1B04 next_btn_01.png
 P D6A96288 next_btn_02.png
 P 570F99BA next_btn_03.png
+P 711930B5 share_btn.png
 D loding
 S 1DDC923F bg_01.png
 P 3878938B load$bar.png
@@ -117,6 +118,8 @@ P 2CBD3F26 word_shiyong.png
 P 35C4FCA6 word_xiexie.png
 P 2B2E8F22 word_zanshi.png
 P A0A1F6EE word_zanshino.png
+D Share
+R C64E14F0 lALPD4BhqalRHD7NAljNA9s_987_600.png
 D shezhi
 P D7365D2D close_btn.png
 P D5B04095 icon_voiceoff.png
@@ -129,7 +132,7 @@ P 2F67DEAB ui_baseborde2.png
 P BD01B4EC ui_baseborde3.png
 D TJ
 D voice
-R 6FAE5CE7 bgm.mp3
+R DF5F5D4D bgm.mp3
 R 626CADAF btn.wav
 R 9B501DC8 chijinbi.wav
 R E23D09D2 guoguan.wav

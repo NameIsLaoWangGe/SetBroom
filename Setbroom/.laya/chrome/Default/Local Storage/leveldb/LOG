@@ -1,3 +1,11 @@
-2020/06/24-17:44:39.986 3dd0 Reusing MANIFEST D:\Game\project\SetBroom\obj\Setbroom\.laya\chrome\Default\Local Storage\leveldb/MANIFEST-000001
-2020/06/24-17:44:39.987 3dd0 Recovering log #306
-2020/06/24-17:44:39.987 3dd0 Reusing old log D:\Game\project\SetBroom\obj\Setbroom\.laya\chrome\Default\Local Storage\leveldb/000306.log 
+2020/06/29-10:29:31.953 6b4 Reusing MANIFEST D:\Game\project\SetBroom\obj\Setbroom\.laya\chrome\Default\Local Storage\leveldb/MANIFEST-000001
+2020/06/29-10:29:31.953 6b4 Recovering log #306
+2020/06/29-10:29:31.953 6b4 Level-0 table #309: started
+2020/06/29-10:29:32.004 6b4 Level-0 table #309: 6100 bytes OK
+2020/06/29-10:29:32.004 6b4 Recovering log #309
+2020/06/29-10:29:32.046 6b4 Reusing old log D:\Game\project\SetBroom\obj\Setbroom\.laya\chrome\Default\Local Storage\leveldb/000309.log 
+2020/06/29-10:29:32.083 6b4 Delete type=0 #306
+2020/06/29-10:29:32.083 6b4 Delete type=2 #310
+2020/06/29-11:07:07.341 5fdc Level-0 table #311: started
+2020/06/29-11:07:07.384 5fdc Level-0 table #311: 16202 bytes OK
+2020/06/29-11:07:07.409 5fdc Delete type=0 #309

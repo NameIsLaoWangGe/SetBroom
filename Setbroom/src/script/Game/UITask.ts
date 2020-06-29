@@ -43,6 +43,12 @@ export default class UITask extends Laya.Script {
 
         this.self = this.owner as Laya.Scene;
         this.sontentSet();
+        this.adaptive();
+    }
+
+    /**一些节点的适配*/
+    adaptive(): void {
+        this.self['Describe'].y = Laya.stage.height * 0.0265;
     }
 
     /**当前关卡的显示*/

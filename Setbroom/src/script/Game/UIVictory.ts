@@ -1,5 +1,6 @@
 import { lwg } from "../Lwg_Template/lwg";
 import ADManager from "../../TJ/Admanager";
+import RecordManager from "../../TJ/RecordManager";
 
 export default class UIVictory extends Laya.Script {
     // /** @prop {name:intType, tips:"整数类型示例", type:Int, default:1000}*/
@@ -27,6 +28,8 @@ export default class UIVictory extends Laya.Script {
     constructor() { super(); }
 
     onEnable(): void {
+        RecordManager.stopAutoRecord();
+
         this.self = this.owner as Laya.Scene
         this.BtnGet = this.self['BtnGet'];
         this.AccordingLv = this.self['AccordingLv'];
@@ -36,6 +39,7 @@ export default class UIVictory extends Laya.Script {
         this.BtnSelect = this.self['BtnSelect'];
         this.Logo = this.self['Logo'];
         this.SetBtn = this.self['SetBtn'];
+        this.self['UIVictory'] = this;
 
         this.getGoldDisplay();
         this.accordingLv();
@@ -51,6 +55,13 @@ export default class UIVictory extends Laya.Script {
 
         this.adaptive();
         this.openAni();
+
+        this.self['BtnNo'].visible = false;
+        setTimeout(() => {
+            this.self['BtnNo'].visible = true;
+        }, lwg.Global._btnDelayed);
+
+        lwg.PalyAudio.playSound(lwg.Enum.voiceUrl.guoguan, 1);
     }
 
     /**一些节点的适配*/
@@ -60,6 +71,8 @@ export default class UIVictory extends Laya.Script {
         this.AccordingLv.y = Laya.stage.height * 0.110;
         this.SetBtn.y = Laya.stage.height * 0.762;
         this.self['P202'].y = Laya.stage.height * 0.494;
+
+        this.self['BtnShare'].y = Laya.stage.height * 0.7539;
     }
 
     /**开场动画*/
@@ -85,6 +98,9 @@ export default class UIVictory extends Laya.Script {
 
             lwg.Animation.swell_shrink(this.Logo, 1, 1.1, time / 2, delayed * 1, f => {
                 this.btnClickOn();
+                if (lwg.Global._hotShare) {
+                    lwg.Global._openInterface(lwg.Enum.SceneName.UIShare, null, null);
+                }
             });
             lwg.Animation.swell_shrink(this.GetGold, 1, 1.1, time / 2, delayed * 2, f => {
             });
@@ -142,15 +158,27 @@ export default class UIVictory extends Laya.Script {
         lwg.Click.on('largen', null, this.self['BtnAdv'], this, null, null, this.btnAdvUp, null);
         lwg.Click.on('noEffect', null, this.self['BtnNo'], this, this.btnNoUp, null, null, null);
         lwg.Click.on('largen', null, this.BtnSet, this, null, null, this.btnSetUP, null);
+        lwg.Click.on('largen', null, this.self['BtnShare'], this, null, null, this.btnShareUp, null);
+    }
+    // 分享
+    btnShareUp(event): void {
+        event.currentTarget.scale(1, 1);
+
+        RecordManager._share('noAward', () => {
+            this.btnShareUpFunc();
+        })
+    }
+    btnShareUpFunc(): void {
+        console.log('分享成功，只是没有奖励！');
     }
 
     btnNoUp(event): void {
         event.currentTarget.scale(1, 1);
         let getLebel = this.GetGold.getChildByName('Num') as Laya.Label;
         lwg.Global._goldNum += Number(getLebel.text);
-        this.openPifuXianding();
-        this.self.close();
         lwg.LocalStorage.addData();
+        this.self.close();
+
     }
 
     btnAdvUp(event): void {
@@ -169,7 +197,7 @@ export default class UIVictory extends Laya.Script {
         if (lwg.Global.pingceV) {
             return;
         }
-        this.openPifuXianding();
+        this.self.close();
     }
 
     /**判断是否弹出限定皮肤界面*/
@@ -189,6 +217,6 @@ export default class UIVictory extends Laya.Script {
     }
 
     onDisable(): void {
-
+        this.openPifuXianding();
     }
 }

@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":66,
-    "selecteID":83,
+    "selectedBox":2,
+    "selecteID":68,
     "searchKey":"View",
     "props":{"width":720,"sceneColor":"#000000","height":1280},
     "nodeParent":-1,
-    "maxID":84,
+    "maxID":86,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -243,7 +243,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,BtnSet,BtnSet",
-            "props":{"y":75,"x":62,"width":68,"var":"BtnSet","skin":"zhujiemian/set_btn.png","pivotY":38,"pivotX":34,"name":"BtnSet","height":75},
+            "props":{"y":150,"x":62,"width":68,"var":"BtnSet","skin":"zhujiemian/set_btn.png","pivotY":38,"pivotX":34,"name":"BtnSet","height":75},
             "nodeParent":2,
             "label":"BtnSet",
             "isDirectory":false,
@@ -520,14 +520,13 @@
             "props":{"y":976,"x":360,"width":347,"var":"SetBtn","pivotY":107,"pivotX":174,"name":"SetBtn","height":213},
             "nodeParent":2,
             "label":"SetBtn",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":66,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,BtnAdv,BtnAdv",
                     "props":{"y":80,"x":174,"width":346,"var":"BtnAdv","pivotY":54,"pivotX":173,"name":"BtnAdv","height":131},
@@ -540,7 +539,6 @@
                     "compId":47,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":0,"x":0,"width":348,"skin":"guoguanchenggong/get_btn_01.png","height":131,"alpha":1},
@@ -554,7 +552,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":34,"x":114,"skin":"guoguanchenggong/get_10bei.png","alpha":1},
@@ -568,7 +565,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite",
                             "props":{"y":33.5,"x":45,"texture":"pifushiyong/icon_adv.png"},
@@ -583,7 +579,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,BtnNo,BtnNo",
                     "props":{"y":195,"x":177,"var":"BtnNo","texture":"guoguanchenggong/word_buxiexie.png","pivotY":17,"pivotX":70,"name":"BtnNo","height":33},
@@ -593,6 +588,33 @@
                     "isAniNode":true,
                     "hasChild":false,
                     "compId":83,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,BtnShare,BtnShare",
+            "props":{"y":965,"x":625.5,"width":94,"var":"BtnShare","pivotY":44,"pivotX":47,"name":"BtnShare","height":88},
+            "nodeParent":2,
+            "label":"BtnShare",
+            "isOpen":false,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":84,
+            "child":[
+                {
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"texture":"guoguanshibai/share_btn.png"},
+                    "nodeParent":84,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":85,
                     "child":[
                         ]
                 }]

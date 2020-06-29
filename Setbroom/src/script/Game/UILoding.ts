@@ -26,6 +26,7 @@ export default class UILoding extends Laya.Script {
         this.MaskMoveSwitch = false;
         this.adaptive();
         this.openAni();
+        
     }
 
     /**一些节点的适配*/
@@ -49,6 +50,7 @@ export default class UILoding extends Laya.Script {
         let wY = this.Word.y;
         lwg.Animation.move_Deform_Y(this.Word, wY, 0, wY, 0.1, -0.15, time, delayed * 3, f => {
             this.openAniFunc();
+            
         });
     }
     openAniFunc(): void {
@@ -104,6 +106,17 @@ export default class UILoding extends Laya.Script {
             lwg.Global._watchAdsNum = data._watchAdsNum;
             lwg.Global._gameOverAdvModel = data._gameOverAdvModel;
             lwg.Global._whetherAdv = data._whetherAdv;
+
+            let d = new Date();
+            lwg.Global._hotShareTime = data._hotShareTime;
+         
+            if (d.getDate() !== lwg.Global._hotShareTime) {
+                lwg.Global._hotShare = true;
+                console.log('今天还有一次热门分享的机会！');
+            } else {
+                lwg.Global._hotShare = false;
+                console.log('今天没有热门分享的机会！');
+            }
         }
     }
 
@@ -117,6 +130,8 @@ export default class UILoding extends Laya.Script {
     }
 
     onDisable(): void {
-
+        if (lwg.Global._voiceSwitch) {
+            lwg.PalyAudio.playMusic(lwg.Enum.voiceUrl.bgm, 0, 1000);
+        }
     }
 }

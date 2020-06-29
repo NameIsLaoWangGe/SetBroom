@@ -17,6 +17,8 @@ export module lwg {
         /**当前金币总数数量*/
         export let _goldNum = 0;
 
+        /**一些按钮的延迟出现时间*/ 
+        export let _btnDelayed = 2000;
         /**关卡数据表*/
         export let _levelsData: any;
 
@@ -53,6 +55,12 @@ export module lwg {
         export let UISet: Laya.Scene;
         /**任务界面的引用*/
         export let UITask: Laya.Scene;
+        export let UIVictory: Laya.Scene;
+
+        /**用于今天是否进行了热门分享的日期*/
+        export let _hotShareTime: number;
+        /**当前是否可以免体力进入一次*/
+        export let _hotShare: boolean = true;
 
         /**声音开关*/
         export let _voiceSwitch: boolean = true;
@@ -60,9 +68,9 @@ export module lwg {
         export let _shakeSwitch: boolean = true;
 
         /**当前选中的皮肤样式*/
-        export let _currentPifu: string;
+        export let _currentPifu: string = '01_xiaofu';
         /**当前拥有的皮肤名称集合*/
-        export let _havePifu: Array<string>;
+        export let _havePifu: Array<string> = ['01_xiaofu'];
         /**当前未拥有皮肤名称集合*/
         export let _notHavePifu: Array<string>;
         /**当前未拥有皮肤名称，删除超人的皮肤*/
@@ -182,6 +190,7 @@ export module lwg {
                 // console.log('打开' + openName + '场景');
                 switch (openName) {
                     case 'UIVictory':
+                        UIVictory = scene;
                         console.log('本关胜利');
                         break;
                     case 'UIDefeated':
@@ -215,6 +224,7 @@ export module lwg {
                 }
             }));
         }
+
 
         /**
          * 创建提示框prefab
@@ -269,10 +279,11 @@ export module lwg {
                 '_havePifu': lwg.Global._havePifu,
                 '_watchAdsNum': lwg.Global._watchAdsNum,
                 '_gameOverAdvModel': lwg.Global._gameOverAdvModel,
+                '_hotShareTime': lwg.Global._hotShareTime,
             }
             // 转换成字符串上传
             let data: string = JSON.stringify(storageData);
-            Laya.LocalStorage.setItem('storageData', data);
+            Laya.LocalStorage.setJSON('storageData', data);
         }
 
         /**清除本地数据*/
@@ -282,9 +293,11 @@ export module lwg {
 
         /**获取本地数据*/
         export function getData(): any {
-            let storageData = Laya.LocalStorage.getJSON('storageData');
+            let storageData: string = Laya.LocalStorage.getJSON('storageData');
             if (storageData) {
-                return storageData;
+                // 将字符串转换成json
+                let data: any = JSON.parse(storageData);
+                return data;
             } else {
                 lwg.Global._gameLevel = 1;
                 lwg.Global._goldNum = 0;
@@ -294,6 +307,7 @@ export module lwg {
                 lwg.Global._watchAdsNum = 0;
                 lwg.Global._gameOverAdvModel = 1;
                 lwg.Global._whetherAdv = false;
+                lwg.Global._hotShareTime = null;
                 return null;
             }
         }
@@ -303,6 +317,27 @@ export module lwg {
 
     /**枚举，常量*/
     export module Enum {
+
+        /**当前所有场景的名称*/
+        export enum SceneName {
+            UILoding = 'UILoding',
+            UIStart = 'UIStart',
+            UIMain = 'UIMain',
+            UIVictory = 'UIVictory',
+            UIDefeated = 'UIDefeated',
+            UIExecutionHint = 'UIExecutionHint',
+            UIPassHint = 'UIPassHint',
+            UISet = 'UISet',
+            UIPifu = 'UIPifu',
+            UIPuase = 'UIPuase',
+            UIShare = 'UIShare',
+            UISmallHint = 'UISmallHint',
+            UIXDpifu = 'UIXDpifu',
+            UIPifuTry = 'UIPifuTry',
+            UIRedeem = 'UIRedeem',
+            UIAnchorXD = 'UIAnchorXD'
+        }
+
         /**
          * 扫把的当前状态列举
          * 总共10状态，静止、连接中静止和米字型8方向运动状态
@@ -328,8 +363,8 @@ export module lwg {
             right = 'right'
         };
 
-         /**提示文字的类型描述*/
-         export enum HintDec {
+        /**提示文字的类型描述*/
+        export enum HintDec {
             '金币不够了！',
             '没有可以购买的皮肤了！',
             '暂时没有广告，过会儿再试试吧！',
@@ -386,6 +421,9 @@ export module lwg {
         export enum voiceUrl {
             btn = 'voice/btn.wav',
             bgm = 'voice/bgm.mp3',
+            chijinbi = 'voice/chijinbi.wav',
+            guoguan = 'voice/guoguan.wav',
+            wancheng = 'voice/wancheng.wav',
         }
 
         /**皮肤的顺序以及名称*/
@@ -450,16 +488,6 @@ export module lwg {
             /**吃金币*/
             gold = 'gold',
         }
-
-        /**当前所有场景的名称*/
-        export enum SceneName {
-            UILoding = 'UILoding',
-            UIMain = 'UIMain',
-            UIStart = 'UIStart',
-            UITask = 'UITask',
-            UIVictory = 'UIVictory',
-            UIDefeated = 'UIDefeated'
-        }
     }
 
     /**
@@ -467,6 +495,18 @@ export module lwg {
     * 2.点击事件模块
     */
     export module Click {
+
+        /**点击事件类型*/
+        export enum ClickType {
+            /**无效果*/
+            noEffect = 'noEffect',
+            /**点击放大*/
+            largen = 'largen',
+            /**类似气球*/
+            balloon = 'balloon',
+            /**小虫子*/
+            beetle = 'beetle',
+        }
         /**音乐的url*/
         export let audioUrl: string;
         /**
@@ -1392,7 +1432,9 @@ export module lwg {
          * @param number 播放次数
          */
         export function playSound(url, number) {
-            Laya.SoundManager.playSound(url, number, Laya.Handler.create(this, function () { }));
+            if (lwg.Global._voiceSwitch) {
+                Laya.SoundManager.playSound(url, number, Laya.Handler.create(this, function () { }));
+            }
         }
 
         /**通用背景音乐播放
@@ -1401,7 +1443,9 @@ export module lwg {
         * @param deley 延时时间
         */
         export function playMusic(url, number, deley) {
-            Laya.SoundManager.playMusic(url, number, Laya.Handler.create(this, function () { }), deley);
+            if (lwg.Global._voiceSwitch) {
+                Laya.SoundManager.playMusic(url, number, Laya.Handler.create(this, function () { }), deley);
+            }
         }
 
         /**停止播放背景音乐*/

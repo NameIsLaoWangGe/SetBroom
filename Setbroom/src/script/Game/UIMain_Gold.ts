@@ -35,6 +35,7 @@ export default class UIMain_Gold extends Laya.Script3D {
         if (Math.abs(diffX) < 0.10 && Math.abs(diffY) < 0.10) {
             lwg.Global._taskGoldNum++;
             this.self.removeSelf();
+            lwg.PalyAudio.playSound(lwg.Enum.voiceUrl.chijinbi, 1);
         }
     }
 }

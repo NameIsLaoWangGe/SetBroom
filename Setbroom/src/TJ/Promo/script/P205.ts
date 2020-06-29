@@ -51,6 +51,7 @@ export default class P205 extends Behaviour
         {
             if(Laya.Browser.onIOS)
             {
+                this.active = false;
                 return;
             }
             return;

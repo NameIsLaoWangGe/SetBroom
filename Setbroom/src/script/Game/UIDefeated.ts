@@ -1,5 +1,6 @@
 import { lwg } from "../Lwg_Template/lwg";
 import ADManager from "../../TJ/Admanager";
+import RecordManager from "../../TJ/RecordManager";
 export default class UIDefeated extends Laya.Script {
     /**指代挂载当前脚本的节点*/
     private self: Laya.Scene;
@@ -14,6 +15,8 @@ export default class UIDefeated extends Laya.Script {
     constructor() { super(); }
 
     onEnable(): void {
+        RecordManager.stopAutoRecord();
+
         this.self = this.owner as Laya.Scene;
         this.BtnAgain = this.self['BtnAgain'];
         this.BtnLast = this.self['BtnLast'];
@@ -24,13 +27,27 @@ export default class UIDefeated extends Laya.Script {
 
         this.adaptive();
         this.openAni();
+
+        this.BtnAgain.visible = false;
+        setTimeout(() => {
+            this.BtnAgain.visible = true;
+        }, lwg.Global._btnDelayed); 
+
+        if (lwg.Global._shakeSwitch) {
+            ADManager.Vibratelong();
+        }
     }
 
     /**一些节点的适配*/
     adaptive(): void {
         this.BtnLast.y = Laya.stage.height * 0.754;
-        this.BtnAgain.y = Laya.stage.height * 0.651;
-        this.self['Logo'].y = Laya.stage.height * 0.256;
+        this.self['BtnShare'].y = Laya.stage.height * 0.754;
+        this.BtnAgain.y = this.BtnLast.y - 103;
+
+        this.self['Logo'].y = Laya.stage.height * 0.1718;
+
+        this.self['P202'].y = Laya.stage.height * 0.4328;
+
     }
 
     /**开场动画*/
@@ -73,6 +90,18 @@ export default class UIDefeated extends Laya.Script {
         lwg.Click.on('largen', null, this.BtnAgain, this, null, null, this.BtnAgainUp, null);
         lwg.Click.on('largen', null, this.BtnLast, this, null, null, this.BtnLastUp, null);
         lwg.Click.on('largen', null, this.BtnSet, this, null, null, this.btnSetUP, null);
+        lwg.Click.on('largen', null, this.self['BtnShare'], this, null, null, this.btnShareUp, null);
+    }
+    // 分享
+    btnShareUp(event): void {
+        event.currentTarget.scale(1, 1);
+
+        RecordManager._share('noAward', () => {
+            this.btnShareUpFunc();
+        })
+    }
+    btnShareUpFunc(): void {
+        console.log('分享成功，只是没有奖励！');
     }
 
     /**再来一次的按钮抬起事件*/

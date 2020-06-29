@@ -33,6 +33,7 @@ export default class UISet extends Laya.Script {
     adaptive(): void {
         this.SceneContent.y = Laya.stage.height / 2;
         this.SceneContent.x = Laya.stage.width / 2;
+        this.self['P204'].y = Laya.stage.height - 75;
     }
 
     /**开场动画*/

@@ -13,6 +13,7 @@ import UILoding from "./script/Game/UILoding"
 import UIPifuTry from "./script/Game/UIPifuTry"
 import UIPifu from "./script/Game/UIPifu"
 import UISet from "./script/Game/UISet"
+import UIShare from "./script/Game/UIShare"
 import UIStart from "./script/Game/UIStart"
 import UITask from "./script/Game/UITask"
 import UIVictory from "./script/Game/UIVictory"
@@ -51,6 +52,7 @@ export default class GameConfig{
         reg("script/Game/UIPifuTry.ts",UIPifuTry);
         reg("script/Game/UIPifu.ts",UIPifu);
         reg("script/Game/UISet.ts",UISet);
+        reg("script/Game/UIShare.ts",UIShare);
         reg("script/Game/UIStart.ts",UIStart);
         reg("script/Game/UITask.ts",UITask);
         reg("script/Game/UIVictory.ts",UIVictory);

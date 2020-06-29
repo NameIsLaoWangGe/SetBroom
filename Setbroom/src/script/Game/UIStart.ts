@@ -1,4 +1,5 @@
 import { lwg } from "../Lwg_Template/lwg";
+import RecordManager from "../../TJ/RecordManager";
 export default class UIStart extends Laya.Script {
     /**挂载当前脚本的节点*/
     private self: Laya.Scene;
@@ -32,19 +33,24 @@ export default class UIStart extends Laya.Script {
         this.levelsDisplayFormat();
         this.pifuXianding();
         lwg.Global._levelInformation();
-        if (lwg.Global._voiceSwitch) {
-            lwg.PalyAudio.playMusic(lwg.Enum.voiceUrl.bgm, 0, 1000);
-        }
+      
         this.noHaveSubChaoren();
 
         this.adaptive();
         this.openAni();
     }
 
-
     /**一些节点的适配*/
     adaptive(): void {
-        this.BtnStart.y = Laya.stage.height * 0.788;
+        this.BtnStart.y = Laya.stage.height * 0.7171;
+        this.self['P204'].y = Laya.stage.height - 75;
+        this.self['P201_01'].y = Laya.stage.height * 0.245;
+        this.self['P201_02'].y = Laya.stage.height * 0.245;
+        this.self['P201_03'].y = Laya.stage.height * 0.37265625;
+        this.self['P205'].y = Laya.stage.height * 0.505;
+        this.BtnPifu.y = Laya.stage.height * 0.51875;
+        this.BtnXianding.y = Laya.stage.height * 0.52109375;
+        this.AccordingLv.y = Laya.stage.height * 0.1335;
     }
 
     /**开场动画*/
@@ -206,14 +212,15 @@ export default class UIStart extends Laya.Script {
         event.currentTarget.scale(1, 1);
         if (lwg.Global.pingceV) {
             lwg.Global._gameStart = true;
-            this.self.close();
             return;
         }
         this.noHaveSubChaoren();
         if (lwg.Global._notHavePifuSubChaoren.length === 0) {
             lwg.Global._gameStart = true;
+            RecordManager.startAutoRecord();
         } else {
             console.log('出现皮肤试用！');
+            RecordManager.startAutoRecord();
             lwg.Global._openInterface('UIPifuTry', this.self, null);
         }
         this.self.close();

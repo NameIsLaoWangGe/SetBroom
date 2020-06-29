@@ -39,6 +39,8 @@ export default class UIPifuTry extends Laya.Script {
     /**一些节点的适配*/
     adaptive(): void {
         this.self['SceneContent'].y = Laya.stage.height / 2;
+        this.self['P201_02'].y = Laya.stage.height * 0.1656;
+        this.self['P201_01'].y = Laya.stage.height * 0.1656;
     }
 
     /**开场动画*/

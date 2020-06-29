@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":5,
-    "selecteID":32,
+    "selectedBox":2,
+    "selecteID":5,
     "searchKey":"View",
     "props":{"width":720,"sceneColor":"#000000","height":1280},
     "nodeParent":-1,
@@ -35,14 +35,13 @@
             "props":{"y":570,"x":360,"width":572,"var":"SceneContent","pivotY":492,"pivotX":286,"name":"SceneContent","height":994,"alpha":1},
             "nodeParent":2,
             "label":"SceneContent",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":5,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,PifuName,PifuName",
                     "props":{"y":118,"x":286,"width":186,"var":"PifuName","texture":"pifu/ui_name.png","pivotY":27,"pivotX":93,"name":"PifuName","height":53},
@@ -70,7 +69,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,Pifu,Pifu",
                     "props":{"y":428,"x":292,"width":299,"var":"Pifu","pivotY":227,"pivotX":150,"name":"Pifu","height":453},
@@ -83,7 +81,6 @@
                     "compId":26,
                     "child":[
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite",
                             "props":{"y":411,"x":145,"width":292,"texture":"pifushiyong/ui_shadow.png","pivotY":59,"pivotX":146,"height":117},
@@ -97,7 +94,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,img,img",
                             "props":{"y":424,"x":135,"width":239,"var":"img","skin":"pifu/pifu_04_qipao.png","pivotY":421,"pivotX":120,"name":"img","height":421},
@@ -112,7 +108,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,SetBtn,SetBtn",
                     "props":{"y":818,"x":285.5,"width":373,"var":"SetBtn","pivotY":124,"pivotX":187,"name":"SetBtn","height":247},
@@ -125,7 +120,6 @@
                     "compId":32,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,BtnZanshi,BtnZanshi",
                             "props":{"y":212,"x":180.5,"width":137,"var":"BtnZanshi","skin":"pifushiyong/word_zanshi.png","pivotY":17,"pivotX":69,"name":"BtnZanshi","height":34},
@@ -139,7 +133,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,BtnSelect,BtnSelect",
                             "props":{"y":27,"x":185,"width":288,"visible":true,"var":"BtnSelect","pivotY":17,"pivotX":144,"name":"BtnSelect","height":33},
@@ -218,7 +211,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,BtnClose,BtnClose",
                             "props":{"y":55,"x":277,"var":"BtnClose","texture":"pifushiyong/close_btn.png","name":"BtnClose"},
@@ -232,7 +224,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,BtnAdv,BtnAdv",
                             "props":{"y":112,"x":141,"width":281,"var":"BtnAdv","pivotY":57,"pivotX":141,"name":"BtnAdv","height":131,"alpha":1},
@@ -306,10 +297,10 @@
         {
             "x":15,
             "type":"Box",
-            "searchKey":"Box,P201",
-            "props":{"width":112,"name":"P201","height":138,"centerY":-428,"centerX":-240,"anchorY":0.5,"anchorX":0.5},
+            "searchKey":"Box,P201_01,P201_01",
+            "props":{"y":212,"x":99,"width":112,"var":"P201_01","name":"P201_01","height":138,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
-            "label":"P201",
+            "label":"P201_01",
             "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
@@ -452,10 +443,10 @@
         {
             "x":15,
             "type":"Box",
-            "searchKey":"Box,P201",
-            "props":{"width":112,"name":"P201","height":138,"centerY":-428,"centerX":252,"anchorY":0.5,"anchorX":0.5},
+            "searchKey":"Box,P201_02,P201_02",
+            "props":{"y":212,"x":631,"width":112,"var":"P201_02","name":"P201_02","height":138,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
-            "label":"P201",
+            "label":"P201_02",
             "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,

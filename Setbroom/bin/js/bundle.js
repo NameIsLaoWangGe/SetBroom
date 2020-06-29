@@ -734,6 +734,7 @@
                     this.maxX = -this.maxX;
                 if (TJ.API.AppInfo.Channel() == TJ.Define.Channel.AppRt.ZJTD_AppRt) {
                     if (Laya.Browser.onIOS) {
+                        this.active = false;
                         return;
                     }
                     return;
@@ -1001,12 +1002,16 @@
             Global._clickScreenNum = 0;
             Global._gameTimeLine = 0;
             Global._goldNum = 0;
+            Global._btnDelayed = 2000;
             Global._taskContentArray = [];
             Global._taskPrePoint = new Laya.Point();
             Global._firstConnect = false;
             Global._connectState = false;
+            Global._hotShare = true;
             Global._voiceSwitch = true;
             Global._shakeSwitch = true;
+            Global._currentPifu = '01_xiaofu';
+            Global._havePifu = ['01_xiaofu'];
             Global._allPifu = ['01_xiaofu', '02_konglong', '03_xueren', '04_qipao', '05_qianxun', '06_lvyifu', '07_maozi', '08_lufei', '09_chaoren'];
             Global._checkpointInterval = 3;
             Global.pingceV = false;
@@ -1072,6 +1077,7 @@
                     }
                     switch (openName) {
                         case 'UIVictory':
+                            Global.UIVictory = scene;
                             console.log('本关胜利');
                             break;
                         case 'UIDefeated':
@@ -1143,9 +1149,10 @@
                     '_havePifu': lwg.Global._havePifu,
                     '_watchAdsNum': lwg.Global._watchAdsNum,
                     '_gameOverAdvModel': lwg.Global._gameOverAdvModel,
+                    '_hotShareTime': lwg.Global._hotShareTime,
                 };
                 let data = JSON.stringify(storageData);
-                Laya.LocalStorage.setItem('storageData', data);
+                Laya.LocalStorage.setJSON('storageData', data);
             }
             LocalStorage.addData = addData;
             function clearData() {
@@ -1155,7 +1162,8 @@
             function getData() {
                 let storageData = Laya.LocalStorage.getJSON('storageData');
                 if (storageData) {
-                    return storageData;
+                    let data = JSON.parse(storageData);
+                    return data;
                 }
                 else {
                     lwg.Global._gameLevel = 1;
@@ -1166,6 +1174,7 @@
                     lwg.Global._watchAdsNum = 0;
                     lwg.Global._gameOverAdvModel = 1;
                     lwg.Global._whetherAdv = false;
+                    lwg.Global._hotShareTime = null;
                     return null;
                 }
             }
@@ -1173,6 +1182,25 @@
         })(LocalStorage = lwg.LocalStorage || (lwg.LocalStorage = {}));
         let Enum;
         (function (Enum) {
+            let SceneName;
+            (function (SceneName) {
+                SceneName["UILoding"] = "UILoding";
+                SceneName["UIStart"] = "UIStart";
+                SceneName["UIMain"] = "UIMain";
+                SceneName["UIVictory"] = "UIVictory";
+                SceneName["UIDefeated"] = "UIDefeated";
+                SceneName["UIExecutionHint"] = "UIExecutionHint";
+                SceneName["UIPassHint"] = "UIPassHint";
+                SceneName["UISet"] = "UISet";
+                SceneName["UIPifu"] = "UIPifu";
+                SceneName["UIPuase"] = "UIPuase";
+                SceneName["UIShare"] = "UIShare";
+                SceneName["UISmallHint"] = "UISmallHint";
+                SceneName["UIXDpifu"] = "UIXDpifu";
+                SceneName["UIPifuTry"] = "UIPifuTry";
+                SceneName["UIRedeem"] = "UIRedeem";
+                SceneName["UIAnchorXD"] = "UIAnchorXD";
+            })(SceneName = Enum.SceneName || (Enum.SceneName = {}));
             let BesomMoveType;
             (function (BesomMoveType) {
                 BesomMoveType["static"] = "static";
@@ -1245,6 +1273,9 @@
             (function (voiceUrl) {
                 voiceUrl["btn"] = "voice/btn.wav";
                 voiceUrl["bgm"] = "voice/bgm.mp3";
+                voiceUrl["chijinbi"] = "voice/chijinbi.wav";
+                voiceUrl["guoguan"] = "voice/guoguan.wav";
+                voiceUrl["wancheng"] = "voice/wancheng.wav";
             })(voiceUrl = Enum.voiceUrl || (Enum.voiceUrl = {}));
             let PifuAllName;
             (function (PifuAllName) {
@@ -1301,18 +1332,16 @@
                 TaskType["continue"] = "continue";
                 TaskType["gold"] = "gold";
             })(TaskType = Enum.TaskType || (Enum.TaskType = {}));
-            let SceneName;
-            (function (SceneName) {
-                SceneName["UILoding"] = "UILoding";
-                SceneName["UIMain"] = "UIMain";
-                SceneName["UIStart"] = "UIStart";
-                SceneName["UITask"] = "UITask";
-                SceneName["UIVictory"] = "UIVictory";
-                SceneName["UIDefeated"] = "UIDefeated";
-            })(SceneName = Enum.SceneName || (Enum.SceneName = {}));
         })(Enum = lwg.Enum || (lwg.Enum = {}));
         let Click;
         (function (Click) {
+            let ClickType;
+            (function (ClickType) {
+                ClickType["noEffect"] = "noEffect";
+                ClickType["largen"] = "largen";
+                ClickType["balloon"] = "balloon";
+                ClickType["beetle"] = "beetle";
+            })(ClickType = Click.ClickType || (Click.ClickType = {}));
             function on(effect, audioUrl, target, caller, down, move, up, out) {
                 let btnEffect;
                 if (audioUrl) {
@@ -1812,11 +1841,15 @@
         let PalyAudio;
         (function (PalyAudio) {
             function playSound(url, number) {
-                Laya.SoundManager.playSound(url, number, Laya.Handler.create(this, function () { }));
+                if (lwg.Global._voiceSwitch) {
+                    Laya.SoundManager.playSound(url, number, Laya.Handler.create(this, function () { }));
+                }
             }
             PalyAudio.playSound = playSound;
             function playMusic(url, number, deley) {
-                Laya.SoundManager.playMusic(url, number, Laya.Handler.create(this, function () { }), deley);
+                if (lwg.Global._voiceSwitch) {
+                    Laya.SoundManager.playMusic(url, number, Laya.Handler.create(this, function () { }), deley);
+                }
             }
             PalyAudio.playMusic = playMusic;
             function stopMusic() {
@@ -2140,9 +2173,115 @@
         TaT[TaT["LevelFail"] = 7] = "LevelFail";
     })(TaT || (TaT = {}));
 
+    class RecordManager {
+        constructor() {
+            this.GRV = null;
+            this.isRecordVideoing = false;
+            this.isVideoRecord = false;
+            this.videoRecordTimer = 0;
+            this.isHasVideoRecord = false;
+        }
+        static Init() {
+            RecordManager.grv = new TJ.Platform.AppRt.DevKit.TT.GameRecorderVideo();
+        }
+        static startAutoRecord() {
+            if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt)
+                return;
+            if (RecordManager.grv == null)
+                RecordManager.Init();
+            if (RecordManager.recording)
+                return;
+            RecordManager.autoRecording = true;
+            console.log("******************开始录屏");
+            RecordManager._start();
+            RecordManager.lastRecordTime = Date.now();
+        }
+        static stopAutoRecord() {
+            if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt)
+                return;
+            if (!RecordManager.autoRecording) {
+                console.log("RecordManager.autoRecording", RecordManager.autoRecording);
+                return false;
+            }
+            RecordManager.autoRecording = false;
+            RecordManager._end(false);
+            if (Date.now() - RecordManager.lastRecordTime > 6000) {
+                return true;
+            }
+            if (Date.now() - RecordManager.lastRecordTime < 3000) {
+                console.log("小于3秒");
+                return false;
+            }
+            return true;
+        }
+        static startRecord() {
+            if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt)
+                return;
+            if (RecordManager.autoRecording) {
+                this.stopAutoRecord();
+            }
+            RecordManager.recording = true;
+            RecordManager._start();
+            RecordManager.lastRecordTime = Date.now();
+        }
+        static stopRecord() {
+            if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt)
+                return;
+            console.log("time:" + (Date.now() - RecordManager.lastRecordTime));
+            if (Date.now() - RecordManager.lastRecordTime <= 3000) {
+                return false;
+            }
+            RecordManager.recording = false;
+            RecordManager._end(true);
+            return true;
+        }
+        static _start() {
+            if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt)
+                return;
+            console.log("******************180s  ？？？？？");
+            RecordManager.grv.Start(180);
+        }
+        static _end(share) {
+            if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt)
+                return;
+            console.log("******************180结束 ？？？？？");
+            RecordManager.grv.Stop(share);
+        }
+        static _share(type, successedAc, completedAc = null, failAc = null) {
+            if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt)
+                return;
+            console.log("******************吊起分享 ？？？？？", RecordManager.grv, RecordManager.grv.videoPath);
+            if (RecordManager.grv.videoPath) {
+                let p = new TJ.Platform.AppRt.Extern.TT.ShareAppMessageParam();
+                p.extra.videoTopics = ["甩锅给队友", "回来吧刺激战场", "番茄小游戏", "抖音小游戏"];
+                p.channel = "video";
+                p.success = () => {
+                    lwg.Global._createHint_01(lwg.Enum.HintType.sharesuccess);
+                    successedAc();
+                };
+                p.fail = () => {
+                    if (type === 'noAward') {
+                        lwg.Global._createHint_01(lwg.Enum.HintType.sharefailNoAward);
+                    }
+                    else {
+                        lwg.Global._createHint_01(lwg.Enum.HintType.sharefail);
+                    }
+                    failAc();
+                };
+                RecordManager.grv.Share(p);
+            }
+            else {
+                lwg.Global._createHint_01(lwg.Enum.HintType.novideo);
+            }
+        }
+    }
+    RecordManager.recording = false;
+    RecordManager.autoRecording = false;
+
     class UIDefeated extends Laya.Script {
         constructor() { super(); }
         onEnable() {
+            RecordManager.stopAutoRecord();
             this.self = this.owner;
             this.BtnAgain = this.self['BtnAgain'];
             this.BtnLast = this.self['BtnLast'];
@@ -2152,11 +2291,20 @@
             lwg.Global.vibratingScreen();
             this.adaptive();
             this.openAni();
+            this.BtnAgain.visible = false;
+            setTimeout(() => {
+                this.BtnAgain.visible = true;
+            }, lwg.Global._btnDelayed);
+            if (lwg.Global._shakeSwitch) {
+                ADManager.Vibratelong();
+            }
         }
         adaptive() {
             this.BtnLast.y = Laya.stage.height * 0.754;
-            this.BtnAgain.y = Laya.stage.height * 0.651;
-            this.self['Logo'].y = Laya.stage.height * 0.256;
+            this.self['BtnShare'].y = Laya.stage.height * 0.754;
+            this.BtnAgain.y = this.BtnLast.y - 103;
+            this.self['Logo'].y = Laya.stage.height * 0.1718;
+            this.self['P202'].y = Laya.stage.height * 0.4328;
         }
         openAni() {
             let delayed = 150;
@@ -2187,6 +2335,16 @@
             lwg.Click.on('largen', null, this.BtnAgain, this, null, null, this.BtnAgainUp, null);
             lwg.Click.on('largen', null, this.BtnLast, this, null, null, this.BtnLastUp, null);
             lwg.Click.on('largen', null, this.BtnSet, this, null, null, this.btnSetUP, null);
+            lwg.Click.on('largen', null, this.self['BtnShare'], this, null, null, this.btnShareUp, null);
+        }
+        btnShareUp(event) {
+            event.currentTarget.scale(1, 1);
+            RecordManager._share('noAward', () => {
+                this.btnShareUpFunc();
+            });
+        }
+        btnShareUpFunc() {
+            console.log('分享成功，只是没有奖励！');
         }
         BtnAgainUp(event) {
             event.currentTarget.scale(1, 1);
@@ -3025,6 +3183,16 @@
                 lwg.Global._watchAdsNum = data._watchAdsNum;
                 lwg.Global._gameOverAdvModel = data._gameOverAdvModel;
                 lwg.Global._whetherAdv = data._whetherAdv;
+                let d = new Date();
+                lwg.Global._hotShareTime = data._hotShareTime;
+                if (d.getDate() !== lwg.Global._hotShareTime) {
+                    lwg.Global._hotShare = true;
+                    console.log('今天还有一次热门分享的机会！');
+                }
+                else {
+                    lwg.Global._hotShare = false;
+                    console.log('今天没有热门分享的机会！');
+                }
             }
         }
         onUpdate() {
@@ -3035,6 +3203,9 @@
             }
         }
         onDisable() {
+            if (lwg.Global._voiceSwitch) {
+                lwg.PalyAudio.playMusic(lwg.Enum.voiceUrl.bgm, 0, 1000);
+            }
         }
     }
 
@@ -3055,6 +3226,8 @@
         }
         adaptive() {
             this.self['SceneContent'].y = Laya.stage.height / 2;
+            this.self['P201_02'].y = Laya.stage.height * 0.1656;
+            this.self['P201_01'].y = Laya.stage.height * 0.1656;
         }
         openAni() {
             let delayed = 150;
@@ -3486,6 +3659,7 @@
         adaptive() {
             this.SceneContent.y = Laya.stage.height / 2;
             this.SceneContent.x = Laya.stage.width / 2;
+            this.self['P204'].y = Laya.stage.height - 75;
         }
         openAni() {
             let delayed = 150;
@@ -3565,6 +3739,54 @@
         }
     }
 
+    class UIShare extends Laya.Script {
+        onEnable() {
+            this.self = this.owner;
+            this.adaptive();
+            this.btnOnClick();
+            this.goldRes();
+        }
+        adaptive() {
+            this.self['SceneContent'].y = Laya.stage.height / 2;
+        }
+        goldRes() {
+            this.self['GoldNum'].text = lwg.Global._goldNum;
+        }
+        btnOnClick() {
+            lwg.Click.on(lwg.Click.ClickType.noEffect, null, this.self['background'], this, null, null, this.backgroundUp, null);
+            lwg.Click.on(lwg.Click.ClickType.largen, null, this.self['BtnNoShare'], this, null, null, this.btnNoShareUp, null);
+            lwg.Click.on(lwg.Click.ClickType.largen, null, this.self['BtnShare'], this, null, null, this.btnShareUp, null);
+        }
+        backgroundUp(event) {
+            console.log('点击背景也是分享！');
+            RecordManager._share('award', () => {
+                this.btnShareUpFunc();
+            });
+        }
+        btnShareUp(event) {
+            event.currentTarget.scale(1, 1);
+            console.log('分享！');
+            RecordManager._share('award', () => {
+                this.btnShareUpFunc();
+            });
+        }
+        btnShareUpFunc() {
+            console.log('分享成功了！');
+            lwg.Global._createHint_01(lwg.Enum.HintType.shareyes);
+            lwg.Global._goldNum += 125;
+            lwg.Global.UIVictory['UIVictory'].goldRes();
+            let d = new Date();
+            lwg.Global._hotShare = false;
+            lwg.Global._hotShareTime = d.getDate();
+            lwg.LocalStorage.addData();
+            this.self.close();
+        }
+        btnNoShareUp(event) {
+            this.self.close();
+            event.currentTarget.scale(1, 1);
+        }
+    }
+
     class UIStart extends Laya.Script {
         constructor() { super(); }
         onEnable() {
@@ -3580,15 +3802,20 @@
             this.levelsDisplayFormat();
             this.pifuXianding();
             lwg.Global._levelInformation();
-            if (lwg.Global._voiceSwitch) {
-                lwg.PalyAudio.playMusic(lwg.Enum.voiceUrl.bgm, 0, 1000);
-            }
             this.noHaveSubChaoren();
             this.adaptive();
             this.openAni();
         }
         adaptive() {
-            this.BtnStart.y = Laya.stage.height * 0.788;
+            this.BtnStart.y = Laya.stage.height * 0.7171;
+            this.self['P204'].y = Laya.stage.height - 75;
+            this.self['P201_01'].y = Laya.stage.height * 0.245;
+            this.self['P201_02'].y = Laya.stage.height * 0.245;
+            this.self['P201_03'].y = Laya.stage.height * 0.37265625;
+            this.self['P205'].y = Laya.stage.height * 0.505;
+            this.BtnPifu.y = Laya.stage.height * 0.51875;
+            this.BtnXianding.y = Laya.stage.height * 0.52109375;
+            this.AccordingLv.y = Laya.stage.height * 0.1335;
         }
         openAni() {
             let delayed = 100;
@@ -3711,15 +3938,16 @@
             event.currentTarget.scale(1, 1);
             if (lwg.Global.pingceV) {
                 lwg.Global._gameStart = true;
-                this.self.close();
                 return;
             }
             this.noHaveSubChaoren();
             if (lwg.Global._notHavePifuSubChaoren.length === 0) {
                 lwg.Global._gameStart = true;
+                RecordManager.startAutoRecord();
             }
             else {
                 console.log('出现皮肤试用！');
+                RecordManager.startAutoRecord();
                 lwg.Global._openInterface('UIPifuTry', this.self, null);
             }
             this.self.close();
@@ -3763,6 +3991,7 @@
             if (Math.abs(diffX) < 0.10 && Math.abs(diffY) < 0.10) {
                 lwg.Global._taskGoldNum++;
                 this.self.removeSelf();
+                lwg.PalyAudio.playSound(lwg.Enum.voiceUrl.chijinbi, 1);
             }
         }
     }
@@ -3780,6 +4009,10 @@
             this.self['UITask'] = this;
             this.self = this.owner;
             this.sontentSet();
+            this.adaptive();
+        }
+        adaptive() {
+            this.self['Describe'].y = Laya.stage.height * 0.0265;
         }
         sontentSet() {
             console.log('重来');
@@ -3890,6 +4123,7 @@
     class UIVictory extends Laya.Script {
         constructor() { super(); }
         onEnable() {
+            RecordManager.stopAutoRecord();
             this.self = this.owner;
             this.BtnGet = this.self['BtnGet'];
             this.AccordingLv = this.self['AccordingLv'];
@@ -3899,6 +4133,7 @@
             this.BtnSelect = this.self['BtnSelect'];
             this.Logo = this.self['Logo'];
             this.SetBtn = this.self['SetBtn'];
+            this.self['UIVictory'] = this;
             this.getGoldDisplay();
             this.accordingLv();
             this.goldRes();
@@ -3910,6 +4145,11 @@
             }
             this.adaptive();
             this.openAni();
+            this.self['BtnNo'].visible = false;
+            setTimeout(() => {
+                this.self['BtnNo'].visible = true;
+            }, lwg.Global._btnDelayed);
+            lwg.PalyAudio.playSound(lwg.Enum.voiceUrl.guoguan, 1);
         }
         adaptive() {
             this.GetGold.y = Laya.stage.height * 0.273;
@@ -3917,6 +4157,7 @@
             this.AccordingLv.y = Laya.stage.height * 0.110;
             this.SetBtn.y = Laya.stage.height * 0.762;
             this.self['P202'].y = Laya.stage.height * 0.494;
+            this.self['BtnShare'].y = Laya.stage.height * 0.7539;
         }
         openAni() {
             let delayed = 150;
@@ -3934,6 +4175,9 @@
             lwg.Animation.move_Deform_X(this.SetBtn, x2, 30, x2, -0.1, 0.2, time, delayed * 3, f => {
                 lwg.Animation.swell_shrink(this.Logo, 1, 1.1, time / 2, delayed * 1, f => {
                     this.btnClickOn();
+                    if (lwg.Global._hotShare) {
+                        lwg.Global._openInterface(lwg.Enum.SceneName.UIShare, null, null);
+                    }
                 });
                 lwg.Animation.swell_shrink(this.GetGold, 1, 1.1, time / 2, delayed * 2, f => {
                 });
@@ -3975,14 +4219,23 @@
             lwg.Click.on('largen', null, this.self['BtnAdv'], this, null, null, this.btnAdvUp, null);
             lwg.Click.on('noEffect', null, this.self['BtnNo'], this, this.btnNoUp, null, null, null);
             lwg.Click.on('largen', null, this.BtnSet, this, null, null, this.btnSetUP, null);
+            lwg.Click.on('largen', null, this.self['BtnShare'], this, null, null, this.btnShareUp, null);
+        }
+        btnShareUp(event) {
+            event.currentTarget.scale(1, 1);
+            RecordManager._share('noAward', () => {
+                this.btnShareUpFunc();
+            });
+        }
+        btnShareUpFunc() {
+            console.log('分享成功，只是没有奖励！');
         }
         btnNoUp(event) {
             event.currentTarget.scale(1, 1);
             let getLebel = this.GetGold.getChildByName('Num');
             lwg.Global._goldNum += Number(getLebel.text);
-            this.openPifuXianding();
-            this.self.close();
             lwg.LocalStorage.addData();
+            this.self.close();
         }
         btnAdvUp(event) {
             event.currentTarget.scale(1, 1);
@@ -3998,7 +4251,7 @@
             if (lwg.Global.pingceV) {
                 return;
             }
-            this.openPifuXianding();
+            this.self.close();
         }
         openPifuXianding() {
             if ((lwg.Global._gameLevel - 1) % lwg.Global._checkpointInterval === 1 && lwg.Global._watchAdsNum < 3) {
@@ -4013,6 +4266,7 @@
             lwg.Global._openInterface('UISet', null, null);
         }
         onDisable() {
+            this.openPifuXianding();
         }
     }
 
@@ -4113,6 +4367,7 @@
             reg("script/Game/UIPifuTry.ts", UIPifuTry);
             reg("script/Game/UIPifu.ts", UIPifu);
             reg("script/Game/UISet.ts", UISet);
+            reg("script/Game/UIShare.ts", UIShare);
             reg("script/Game/UIStart.ts", UIStart);
             reg("script/Game/UITask.ts", UITask);
             reg("script/Game/UIVictory.ts", UIVictory);
