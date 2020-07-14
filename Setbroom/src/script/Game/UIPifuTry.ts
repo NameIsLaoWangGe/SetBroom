@@ -1,5 +1,6 @@
 import { lwg } from "../Lwg_Template/lwg";
 import ADManager from "../../TJ/Admanager";
+import RecordManager from "../../TJ/RecordManager";
 
 export default class UIPifuTry extends Laya.Script {
     /**指代挂载当前脚本的节点*/
@@ -121,22 +122,45 @@ export default class UIPifuTry extends Laya.Script {
 
     /**游戏开始按钮*/
     btnClickOn(): void {
-        console.log(this.self['BtnAdv']);
-        lwg.Click.on('largen', null, this.self['BtnClose'], this, null, null, this.btnCloseClickUp, null);
-        lwg.Click.on('largen', null, this.self['BtnSelect'], this, null, null, this.btnAdvClickUp, null);
+        // lwg.Click.on('largen', null, this.self['BtnClose'], this, null, null, this.btnCloseClickUp, null);
+        lwg.Click.on(lwg.Click.ClickType.noEffect, null, this.self['BtnSelect'], this, null, null, this.btnSelectUp, null);
         lwg.Click.on('largen', null, this.self['BtnAdv'], this, null, null, this.btnAdvClickUp, null);
-        lwg.Click.on('largen', null, this.BtnZanshi, this, null, null, this.btnAdvClickUp, null);
+        // lwg.Click.on('largen', null, this.BtnZanshi, this, null, null, this.btnAdvClickUp, null);
     }
     btnCloseClickUp(event): void {
         event.currentTarget.scale(1, 1);
         this.self.close();
         lwg.Global._gameStart = true;
     }
+
+    btnSelectUp(): void {
+        let dot = this.self['BtnSelect'].getChildByName('Dot') as Laya.Image;
+        let url1 = 'pifushiyong/word_shiyong.png';
+        let url2 = 'pifushiyong/word_zanshino.png';
+
+        let word = this.self['BtnAdv'].getChildByName('Word') as Laya.Image;
+
+        if (dot.visible) {
+            word.skin = url2;
+            dot.visible = false;
+        } else {
+            word.skin = url1;
+            dot.visible = true;
+        }
+    }
+
     btnAdvClickUp(event): void {
         event.currentTarget.scale(1, 1);
-        ADManager.ShowReward(() => {
-            this.advFunc();
-        })
+        let dot = this.self['BtnSelect'].getChildByName('Dot') as Laya.Image;
+        if (dot.visible) {
+            ADManager.ShowReward(() => {
+                this.advFunc();
+            })
+        } else {
+            this.self.close();
+            lwg.Global._gameStart = true;
+        }
+       
     }
     advFunc(): void {
         let yuanpifu = lwg.Global._currentPifu;
@@ -147,6 +171,10 @@ export default class UIPifuTry extends Laya.Script {
 
         lwg.Global._gameStart = true;
         this.self.close();
+    }
+
+    onDisable(): void {
+        RecordManager.startAutoRecord();
     }
 
 }

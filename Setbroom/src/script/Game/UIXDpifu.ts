@@ -103,8 +103,9 @@ export default class UIXDpifu extends Laya.Script {
             lwg.Global._havePifu.push('09_chaoren');
             lwg.Global._currentPifu = lwg.Enum.PifuAllName[8];
             lwg.Global.UIMain['UIMain'].currentPifuSet();//更换成超人皮肤
-            lwg.Global.UIStart['UIStart'].pifuXianding();//隐藏限定皮肤按钮
-
+            lwg.Global._openInterface('UIStart', this.self, f => {
+                lwg.Global.UIStart['UIStart'].pifuXianding();//隐藏限定皮肤按钮
+            });
             lwg.LocalStorage.addData();
         }
     }

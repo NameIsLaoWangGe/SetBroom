@@ -17,7 +17,7 @@ export module lwg {
         /**当前金币总数数量*/
         export let _goldNum = 0;
 
-        /**一些按钮的延迟出现时间*/ 
+        /**一些按钮的延迟出现时间*/
         export let _btnDelayed = 2000;
         /**关卡数据表*/
         export let _levelsData: any;
@@ -186,7 +186,7 @@ export module lwg {
                     background.width = Laya.stage.width;
                     background.height = Laya.stage.height;
                 }
-
+                scene.height = Laya.stage.height;
                 // console.log('打开' + openName + '场景');
                 switch (openName) {
                     case 'UIVictory':
@@ -381,7 +381,8 @@ export module lwg {
             '分享成功，获得125金币！',
             '限定皮肤已经获得，请前往商店查看。',
             '分享失败！',
-            '兑换码错误！'
+            '兑换码错误！',
+            '录屏时间不得小于3秒！'
         }
 
         /**提示类型*/
@@ -402,7 +403,8 @@ export module lwg {
             'shareyes',
             "getXD",
             "sharefailNoAward",
-            "inputerr"
+            "inputerr",
+            "transcribeShort"
         }
 
         /**点击事件类型*/
@@ -602,7 +604,6 @@ export module lwg {
         }
         /**按下*/
         down(event): void {
-            console.log('防止穿透！');
         }
         /**移动*/
         move(event): void {
@@ -630,7 +631,7 @@ export module lwg {
         }
         /**移动*/
         move(event): void {
-            event.currentTarget.scale(1, 1);
+            // event.currentTarget.scale(1, 1);
         }
         /**抬起*/
         up(event): void {

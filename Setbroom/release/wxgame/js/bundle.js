@@ -1075,6 +1075,7 @@
                         background.width = Laya.stage.width;
                         background.height = Laya.stage.height;
                     }
+                    scene.height = Laya.stage.height;
                     switch (openName) {
                         case 'UIVictory':
                             Global.UIVictory = scene;
@@ -1241,6 +1242,7 @@
                 HintDec[HintDec["\u9650\u5B9A\u76AE\u80A4\u5DF2\u7ECF\u83B7\u5F97\uFF0C\u8BF7\u524D\u5F80\u5546\u5E97\u67E5\u770B\u3002"] = 14] = "\u9650\u5B9A\u76AE\u80A4\u5DF2\u7ECF\u83B7\u5F97\uFF0C\u8BF7\u524D\u5F80\u5546\u5E97\u67E5\u770B\u3002";
                 HintDec[HintDec["\u5206\u4EAB\u5931\u8D25\uFF01"] = 15] = "\u5206\u4EAB\u5931\u8D25\uFF01";
                 HintDec[HintDec["\u5151\u6362\u7801\u9519\u8BEF\uFF01"] = 16] = "\u5151\u6362\u7801\u9519\u8BEF\uFF01";
+                HintDec[HintDec["\u5F55\u5C4F\u65F6\u95F4\u4E0D\u5F97\u5C0F\u4E8E3\u79D2\uFF01"] = 17] = "\u5F55\u5C4F\u65F6\u95F4\u4E0D\u5F97\u5C0F\u4E8E3\u79D2\uFF01";
             })(HintDec = Enum.HintDec || (Enum.HintDec = {}));
             let HintType;
             (function (HintType) {
@@ -1261,6 +1263,7 @@
                 HintType[HintType["getXD"] = 14] = "getXD";
                 HintType[HintType["sharefailNoAward"] = 15] = "sharefailNoAward";
                 HintType[HintType["inputerr"] = 16] = "inputerr";
+                HintType[HintType["transcribeShort"] = 17] = "transcribeShort";
             })(HintType = Enum.HintType || (Enum.HintType = {}));
             let ClickType;
             (function (ClickType) {
@@ -1399,7 +1402,6 @@
             constructor() {
             }
             down(event) {
-                console.log('防止穿透！');
             }
             move(event) {
             }
@@ -1419,7 +1421,6 @@
                 }
             }
             move(event) {
-                event.currentTarget.scale(1, 1);
             }
             up(event) {
                 event.currentTarget.scale(1, 1);
@@ -2197,6 +2198,7 @@
             RecordManager.lastRecordTime = Date.now();
         }
         static stopAutoRecord() {
+            this.timeNum = false;
             if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt)
                 return;
             if (!RecordManager.autoRecording) {
@@ -2210,6 +2212,7 @@
             }
             if (Date.now() - RecordManager.lastRecordTime < 3000) {
                 console.log("小于3秒");
+                this.timeNum = true;
                 return false;
             }
             return true;
@@ -2251,9 +2254,13 @@
             if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt)
                 return;
             console.log("******************吊起分享 ？？？？？", RecordManager.grv, RecordManager.grv.videoPath);
+            if (this.timeNum) {
+                lwg.Global._createHint_01(lwg.Enum.HintType.transcribeShort);
+                return;
+            }
             if (RecordManager.grv.videoPath) {
                 let p = new TJ.Platform.AppRt.Extern.TT.ShareAppMessageParam();
-                p.extra.videoTopics = ["甩锅给队友", "回来吧刺激战场", "番茄小游戏", "抖音小游戏"];
+                p.extra.videoTopics = ["师傅我坚持不住了", "回来吧刺激战场", "番茄小游戏", "抖音小游戏"];
                 p.channel = "video";
                 p.success = () => {
                     lwg.Global._createHint_01(lwg.Enum.HintType.sharesuccess);
@@ -2277,6 +2284,7 @@
     }
     RecordManager.recording = false;
     RecordManager.autoRecording = false;
+    RecordManager.timeNum = false;
 
     class UIDefeated extends Laya.Script {
         constructor() { super(); }
@@ -2295,7 +2303,7 @@
             setTimeout(() => {
                 this.BtnAgain.visible = true;
             }, lwg.Global._btnDelayed);
-            if (!lwg.Global._shakeSwitch) {
+            if (lwg.Global._shakeSwitch) {
                 ADManager.Vibratelong();
             }
         }
@@ -3289,22 +3297,40 @@
             pifuImg.skin = lwg.Enum.PifuSkin[oder2];
         }
         btnClickOn() {
-            console.log(this.self['BtnAdv']);
-            lwg.Click.on('largen', null, this.self['BtnClose'], this, null, null, this.btnCloseClickUp, null);
-            lwg.Click.on('largen', null, this.self['BtnSelect'], this, null, null, this.btnAdvClickUp, null);
+            lwg.Click.on(lwg.Click.ClickType.noEffect, null, this.self['BtnSelect'], this, null, null, this.btnSelectUp, null);
             lwg.Click.on('largen', null, this.self['BtnAdv'], this, null, null, this.btnAdvClickUp, null);
-            lwg.Click.on('largen', null, this.BtnZanshi, this, null, null, this.btnAdvClickUp, null);
         }
         btnCloseClickUp(event) {
             event.currentTarget.scale(1, 1);
             this.self.close();
             lwg.Global._gameStart = true;
         }
+        btnSelectUp() {
+            let dot = this.self['BtnSelect'].getChildByName('Dot');
+            let url1 = 'pifushiyong/word_shiyong.png';
+            let url2 = 'pifushiyong/word_zanshino.png';
+            let word = this.self['BtnAdv'].getChildByName('Word');
+            if (dot.visible) {
+                word.skin = url2;
+                dot.visible = false;
+            }
+            else {
+                word.skin = url1;
+                dot.visible = true;
+            }
+        }
         btnAdvClickUp(event) {
             event.currentTarget.scale(1, 1);
-            ADManager.ShowReward(() => {
-                this.advFunc();
-            });
+            let dot = this.self['BtnSelect'].getChildByName('Dot');
+            if (dot.visible) {
+                ADManager.ShowReward(() => {
+                    this.advFunc();
+                });
+            }
+            else {
+                this.self.close();
+                lwg.Global._gameStart = true;
+            }
         }
         advFunc() {
             let yuanpifu = lwg.Global._currentPifu;
@@ -3314,6 +3340,9 @@
             lwg.LocalStorage.addData();
             lwg.Global._gameStart = true;
             this.self.close();
+        }
+        onDisable() {
+            RecordManager.startAutoRecord();
         }
     }
 
@@ -3947,7 +3976,6 @@
             }
             else {
                 console.log('出现皮肤试用！');
-                RecordManager.startAutoRecord();
                 lwg.Global._openInterface('UIPifuTry', this.self, null);
             }
             this.self.close();
@@ -4333,7 +4361,9 @@
                 lwg.Global._havePifu.push('09_chaoren');
                 lwg.Global._currentPifu = lwg.Enum.PifuAllName[8];
                 lwg.Global.UIMain['UIMain'].currentPifuSet();
-                lwg.Global.UIStart['UIStart'].pifuXianding();
+                lwg.Global._openInterface('UIStart', this.self, f => {
+                    lwg.Global.UIStart['UIStart'].pifuXianding();
+                });
                 lwg.LocalStorage.addData();
             }
         }

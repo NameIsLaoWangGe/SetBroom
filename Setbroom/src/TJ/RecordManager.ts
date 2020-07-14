@@ -28,7 +28,9 @@ export default class RecordManager {
         RecordManager.lastRecordTime = Date.now();
     }
 
+    static timeNum: boolean = false;
     public static stopAutoRecord(): boolean {
+        this.timeNum = false;
         if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt) return;
         if (!RecordManager.autoRecording) {
             console.log("RecordManager.autoRecording", RecordManager.autoRecording);
@@ -41,6 +43,7 @@ export default class RecordManager {
         }
         if (Date.now() - RecordManager.lastRecordTime < 3000) {
             console.log("小于3秒");
+            this.timeNum = true;
             return false;
         }
         return true;
@@ -85,9 +88,14 @@ export default class RecordManager {
     public static _share(type: string, successedAc: Function, completedAc: Function = null, failAc: Function = null) {
         if (TJ.API.AppInfo.Channel() != TJ.Define.Channel.AppRt.ZJTD_AppRt) return;
         console.log("******************吊起分享 ？？？？？", RecordManager.grv, RecordManager.grv.videoPath);
+        if (this.timeNum) {
+            lwg.Global._createHint_01(lwg.Enum.HintType.transcribeShort);
+            return;
+        }
+
         if (RecordManager.grv.videoPath) {
             let p = new TJ.Platform.AppRt.Extern.TT.ShareAppMessageParam();
-            p.extra.videoTopics = ["甩锅给队友", "回来吧刺激战场", "番茄小游戏", "抖音小游戏"]
+            p.extra.videoTopics = ["师傅我坚持不住了", "回来吧刺激战场", "番茄小游戏", "抖音小游戏"]
             p.channel = "video";
             p.success = () => {
                 lwg.Global._createHint_01(lwg.Enum.HintType.sharesuccess);

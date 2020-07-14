@@ -220,7 +220,6 @@ export default class UIStart extends Laya.Script {
             RecordManager.startAutoRecord();
         } else {
             console.log('出现皮肤试用！');
-            RecordManager.startAutoRecord();
             lwg.Global._openInterface('UIPifuTry', this.self, null);
         }
         this.self.close();
